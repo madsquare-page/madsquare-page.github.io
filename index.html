@@ -1,127 +1,264 @@
-<!DOCTYPE html>
-<html lang="ko">
-	<head>
-		<title>Madsquare Inc.</title>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-
-		<link type="text/css" rel="stylesheet" href="./css/reset.css">
-		<link type="text/css" rel="stylesheet" href="./css/normalize.css">
-		<link type="text/css" rel="stylesheet" href="./css/bootstrap/css/bootstrap.min.css">
-		<link type="text/css" rel="stylesheet" href="./css/style.css">
-		<!-- <link rel="stylesheet" href="./css/square.css"> -->
-
-		<script type="text/javascript" src="./js/jquery.min.js"></script>
-		<script type="text/javascript" src="./js/jquery-migrate.min.js"></script>
-		<script type="text/javascript" src="./js/bootstrap.min.js"></script>
-	</head>
-	<body>
-	<header class="navbar navbar-static-top bs-docs-nav">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle collapsed">
-					<span class="sr-only"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a href="/" title="Madsqaure Inc." class="navbar-brand"></a>
-			</div>
-			<nav class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li><a href="/help/notice">MADSqaure</a></li>
-					<li><a href="/help/faq">Service</a></li>
-					<li><a href="/help/faq">Contact</a></li>
-				</ul>
-			</nav>
-		</div>
-	</header>
-	<div class="container-fluid img">
-		<img src="./img/img_main.jpeg">
-	</div>
-	<div class="container-fluid madsquare">
-		<div class="row text-center center-block contact-desc">
-			<div class="row h1 title">
-				<strong>MadSquare</strong>
-			</div>
-		</div>
-	</div>
-	<div class="container-fluid service">
-		<div class="row text-center center-block contact-desc">
-			<div class="row h1 title">
-				<strong>Service</strong>
-			</div>
-		</div>
-	</div>
-	<div class="container-fluid contact">
-		<div class="row text-center center-block contact-desc">
-			<div class="row h1 title">
-				<strong>Contact</strong>
-			</div>
-			<div class="row content">
-				<p>
-				서울특별시 강남구 논현동 16-28번지 LF <br/>
-				TEL.02.552.9526 
-				</p>
-			</div>
-			<div class="row mail">
-				<img src="./img/icn_mail.png">				
-				<span>메일 보내기</span>
-			</div>
-		</div>
-		<div id="map" class="contact-map"></div>
-	</div>
-	<footer>
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-6 col-xs-8">
-					서울특별시 강남구 논현동 16-28번지 LF <br/>
-					TEL)02.552.9526 <br/>
-					제휴 및 문의메일 : service@madsq.net
-				</div>
-				<div class="sns col-md-6 col-xs-4">
-					<a href="">이미지1</a>
-					<a href="">이미지2</a>
-				</div>
-			</div>
-			<div class="row bottom">
-				<div class="col-md-6 col-xs-12">
-					사업자 등록번호: 000-00-0000 | 대표이사 : 안준희
-				</div>
-				<div class="copyright col-md-6 col-xs-12">
-					Copyright © <strong title="MAD Square">MADSquare</strong> Co., Ltd
-				</div>
-			</div>
-		</div>
-	</footer>
-	<script>
-		function initMap() {
-			var officeLatLng = {
-				lat: 37.515580, 
-				lng: 127.0220000
-			};
-
-		  var map = new google.maps.Map(document.getElementById('map'), {
-		    center: officeLatLng,
-		    zoom: 18
-		  });
-
-		  var marker = new google.maps.Marker({
-		  	map: map,
-		  	position: officeLatLng,
-		  	title: 'MADSqaure Inc.'
-		  });
-
-		  google.maps.event.addDomListener(window, "resize", function() {
-        var center = map.getCenter();
-        google.maps.event.trigger(map, "resize");
-        map.setCenter(center);
-    	});
-		}
-	</script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxlMDrtCA9kbhPtHaO-Fi7y3-DtJFXJGY&callback=initMap" async defer></script>
-	</body>
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Madsquare Inc.</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
+  <link rel="stylesheet" href="css/normalize.min.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/jquery.fancybox.css">
+  <link rel="stylesheet" href="css/flexslider.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/queries.css">
+  <link rel="stylesheet" href="css/etline-font.css">
+  <link rel="stylesheet" href="bower_components/animate.css/animate.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+<body id="top">
+  <!--[if lt IE 8]>
+  <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+  <section class="office-slider">
+    <section class="navigation">
+    <header>
+      <div class="header-content">
+        <div class="logo"><a href="#"><img src="img/logo_madsquare.png" alt="MADSquare logo"></a></div>
+        <div class="header-nav">
+          <nav>
+            <ul class="menu">
+              <li><a class="active" href="#info">MADSqaure</a></li>
+              <li><a href="#service">Service</a></li>
+              <li><a href="#contact">contact</a></li>
+            </ul>
+            <ul class="language">
+              <li><a class="active" href="#" >KO</a></li>
+              <li><a href="#" >EN</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="navicon">
+          <a class="nav-toggle" href="#"><span></span></a>
+        </div>
+      </div>
+    </header>
+    </section>
+    <div class="container-fluid office">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="officeslider">
+            <ul class="slides">
+              <li>
+                <div class="office-bg">
+                  <img src="img/img4.jpg" alt="">
+                </div>
+              </li>
+              <li>
+                <div class="office-bg">
+                  <img src="img/img2.jpg" alt="">
+                </div>
+              </li>
+              <li>
+                <div class="office-bg">
+                  <img src="img/img3.jpg" alt="">
+                </div>
+              </li>
+              <li>
+                <div class="office-bg">
+                  <img src="img/img1.jpg" alt="">
+                </div>
+              </li>
+              <li>
+                <div class="office-bg">
+                  <img src="img/img5.jpg" alt="">
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="info section-padding" id="info">
+    <div class="container text-center">
+      <div class="row title">
+        <div class="col-md-12">
+          <img src="img/type_madsq.png" alt="">
+        </div>
+      </div>
+      <div class="row content-text">
+        <div class="col-md-12">
+          <p class="text-center">
+            매드스퀘어는 동영상 생산 및 소비속도가 비약적으로 증가하고 플랫폼 경계를 허무는 소비 행태가 가속화되는 시대에 빠른 공유, 빠른 발견, 빠른 소비, 빠른 큐레이션이 가능한 최적의 동영상 유통 플랫폼 스낵을 제공하고 있습니다.
+          </p>
+        </div>
+      </div>
+      <div class="row content-img">
+        <div class="col-md-4">
+          <img src="img/share.png" alt="">
+        </div>
+        <div class="col-md-4">
+          <img src="img/discover.png" alt="">
+        </div>
+        <div class="col-md-4">
+          <img src="img/watch.png" alt="">
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="service section-padding" id="service">
+    <div class="container text-center">
+      <div class="row title">
+        <div class="col-md-12">
+          <img src="img/type_service.png" alt="">
+        </div>
+      </div>
+      <div class="row content">
+        <div class="col-md-7 content-text display-table">
+          <div class="display-table-cell">
+            <div class="col-md-12">
+              <p class="text-left">
+                페이스북, 유튜브, 비메오, 유쿠 등 동영상 사이트의 모든 영상을 검색하고 저장할 수 있으며, 직접 큐레이션한 영상을 채널형태로 공유할 수 있는 동영상 큐레이션 플랫폼입니다.
+              </p>
+            </div>
+            <div class="col-md-12 platform">
+              <div class="col-md-4">
+                <img src="img/googleplay.png" alt="">
+              </div>
+              <div class="col-md-4">
+                <img src="img/appstore.png" alt="">
+              </div>
+              <div class="col-md-4">
+                <img src="img/web.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 content-img">
+          <img src="img/notebook.png" alt="">
+        </div>
+      </div> 
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="snackkslider">
+            <ul class="slides">
+              <li>
+                <div class="col-md-6">
+                  <div class="display-table">
+                    <div class="top100 display-table-cell">
+                      <img src="img/type_top100.png" >
+                      <p class="text-left">
+                        스낵에서 가장 인기있는 채널은?
+                        실시간으로 오르내리는 채널들의 순위를 확인해보세요
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 snackk-type">
+                  <img src="img/top100.png">
+                </div>
+              </li>
+              <li>
+                <div class="col-md-6">
+                  <div class="storage">
+                    <img src="img/type_storage.png" >
+                    <p class="text-left">
+                      스낵에서 가장 인기있는 채널은?
+                      실시간으로 오르내리는 채널들의 순위를 확인해보세요
+                    </p>
+                  </div>
+                  
+                </div>
+                <div class="col-md-6  snackk-type">
+                  <img src="img/storage.png">
+                </div>
+              </li>
+              <li>
+                <div class="col-md-6">
+                  <div class="howabout">
+                    <img src="img/type_howabout.png" >
+                    <p class="text-left">
+                      스낵에서 가장 인기있는 채널은?
+                      실시간으로 오르내리는 채널들의 순위를 확인해보세요
+                    </p>
+                  </div>
+                  
+                </div>
+                <div class="col-md-6 snackk-type">
+                  <img src="img/howabout.png" >
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section-padding text-center">
+    <div class="container-fluid contact">
+    <div class="row text-center center-block contact-desc">
+      <div class="row h1 title">
+      <strong>Contact</strong>
+      </div>
+      <div class="row content">
+      <p>
+      서울특별시 강남구 논현동 16-28번지 LF <br/>
+      TEL.02.552.9526 
+      </p>
+      </div>
+      <div class="row mail">
+      <img src="./img/icn_mail.png">        
+      <span>메일 보내기</span>
+      </div>
+    </div>
+    <div id="map" class="contact-map"></div>
+    </div>      
+  </section>
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-7">
+          <div class="footer-links">
+            <p>Copyright © 2015 <a href="#">Sedna</a><br>
+            <a href="http://tympanus.net/codrops/licensing/">Licence</a> | Crafted with <span class="fa fa-heart pulse2"></span> by <a href="http://www.peterfinlan.com/">Peter Finlan</a>.</p>
+          </div>
+        </div>
+        <div class="social-share">
+          <p>Share Sedna with your friends</p>
+          <a href="https://twitter.com/peterfinlan" class="twitter-share"><i class="fa fa-twitter"></i></a> <a href="#" class="facebook-share"><i class="fa fa-facebook"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+  <script src="bower_components/retina.js/dist/retina.js"></script>
+  <script src="js/jquery.fancybox.pack.js"></script>
+  <script src="js/vendor/bootstrap.min.js"></script>
+  <script src="js/scripts.js"></script>
+  <script src="js/jquery.flexslider-min.js"></script>
+  <script src="bower_components/classie/classie.js"></script>
+  <script src="bower_components/jquery-waypoints/lib/jquery.waypoints.min.js"></script>
+  <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+  <script>
+  (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+  function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+  e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+  e.src='//www.google-analytics.com/analytics.js';
+  r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+  ga('create','UA-XXXXX-X','auto');ga('send','pageview');
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxlMDrtCA9kbhPtHaO-Fi7y3-DtJFXJGY&callback=initMap" async defer></script>
+</body>
 </html>
