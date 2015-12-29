@@ -858,74 +858,80 @@ Contact
 Footer
 ========================================================================== */
 footer {
-  background-color: #3D4351;
-  position: relative; }
-  footer p {
-    color: #ACB1B4;
-    font-size: 13px; }
-  footer a {
-    color: #fff; }
-  footer a:hover {
-    color: #FF5274; }
-  footer ul.footer-group {
-    border-top: solid 1px #4E566C;
-    padding-top: 25px;
-    margin-bottom: 45px; }
-  footer ul.footer-group li {
-    display: inline-block; }
-  footer ul.footer-group li a {
-    font-size: 13px;
-    text-transform: uppercase; }
-  footer ul.footer-group li a:hover {
-    color: #FF5274; }
-  footer ul.footer-group li {
-    margin-right: 30px; }
-  footer ul.footer-group li:last-child {
-    margin-right: 0; }
-  footer span.fa-heart {
-    color: #ff415c;
-    font-size: 15px;
-    margin: 0 2px; }
-  footer .social-share {
-    position: absolute;
-    background-color: #373D4A;
-    right: 0;
-    width: 40%;
-    height: 100%;
-    padding: 142px 0 0 70px; }
-    footer .social-share p {
-      color: #fff;
-      text-transform: uppercase;
-      padding-bottom: 10px; }
-    footer .social-share a.twitter-share {
-      height: 60px;
-      width: 60px;
-      background-color: #1AB4EF;
-      border-radius: 3px;
-      font-size: 22px;
-      display: inline-block;
-      text-align: center;
-      margin-right: 20px; }
-    footer .social-share a.twitter-share:hover, footer .social-share a.twitter-share:focus {
-      background-color: #1590BF; }
-    footer .social-share a.facebook-share:hover, footer .social-share a.facebook-share:focus {
-      background-color: #324C85; }
-    footer .social-share a.facebook-share {
-      height: 60px;
-      width: 60px;
-      background-color: #3B5898;
-      border-radius: 3px;
-      font-size: 22px;
-      display: inline-block;
-      text-align: center; }
-    footer .social-share a {
-      color: #fff; }
-    footer .social-share a:hover {
-      color: #fff; }
-    footer .social-share a i {
-      margin-top: 20px; }
-  footer .footer-links {
-    margin: 120px 0 120px 0; }
+  background-color: #000000;
+  position: relative; 
+  }
+footer p {
+  color: #ACB1B4;
+  font-size: 13px;
+}
+footer a {
+  color: #fff;
+}
+footer a:hover {
+  color: #FF5274;
+}
+footer ul.footer-group {
+  border-top: solid 1px #4E566C;
+  padding-top: 25px;
+  margin-bottom: 45px;
+}
+footer ul.footer-group li {
+  display: inline-block;
+}
+footer ul.footer-group li a {
+  font-size: 13px;
+  text-transform: uppercase;
+}
+footer ul.footer-group li a:hover {
+  color: #FF5274;
+}
+footer ul.footer-group li {
+  margin-right: 30px;
+}
+footer ul.footer-group li:last-child {
+  margin-right: 0;
+}
+footer span.fa-heart {
+  color: #ff415c;
+  font-size: 15px;
+  margin: 0 2px;
+}
+footer .footer-top {
+  margin: 50px 0px;
+}
+footer .footer-bottom {
+  margin-bottom: 30px;
+}
+footer .footer-bottom .col-md-5 p {
+  color: #fff;
+  text-transform: uppercase;
+  padding-bottom: 10px;
+}
+footer .social-share a.circle {
+  padding: 20px 10px;
+}
+/*footer .social-share a.twitter-share:hover, footer .social-share a.twitter-share:focus {
+  background-color: #1590BF;
+}
+footer .social-share a.facebook-share:hover, footer .social-share a.facebook-share:focus {
+  background-color: #324C85;
+}*/
+/*footer .social-share a {
+  color: #fff;
+}*/
+/*footer .social-share a:hover {
+  color: #fff;
+}*/
+/*footer .social-share a i {
+  margin-top: 20px;
+}*/
+footer .footer-links {
+  margin: 120px 0 120px 0;
+}
+footer .footer-info {
+  margin: 50px 0px;
+}
 
 /* ==========================================================================
 Icon font (http://www.elegantthemes.com/blog/freebie-of-the-week/free-line-style-icons)
