@@ -7,6 +7,10 @@
 
 /* bootstrap md size */
 @media (min-width: 992px) {
+	.service .content-img {
+		margin-right: -25%;
+	}
+
 	.service .content-text {
 		position: absolute;
 	}

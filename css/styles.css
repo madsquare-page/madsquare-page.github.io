@@ -461,6 +461,7 @@ madsquare info
 
 .info .content-img div {
   height: 250px;
+  margin-bottom: 10%;
 }
 
 .info .content-img div img {
@@ -509,7 +510,7 @@ madsquare info
 
 .service .content-img {
   float: right;
-  margin-right: -25%;
+  margin-right: 0px;
 }
 
 .service .content-img img{
