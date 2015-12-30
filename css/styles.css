@@ -374,6 +374,10 @@ Navigation
   background-size: 100% 100%;
 }
 
+.service .flex-viewport {
+  margin-left: 60px;
+}
+
 .fixed {
   position: fixed;
   background: none;

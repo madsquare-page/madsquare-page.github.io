@@ -99,7 +99,6 @@ html[xmlns] .flexslider .slides {
   -ms-transition: all 1s ease;
   -o-transition: all 1s ease;
   transition: all 1s ease;
-  margin-left: 60px;
 }
 .loading .flex-viewport {
   max-height: 300px;

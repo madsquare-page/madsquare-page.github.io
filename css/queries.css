@@ -94,6 +94,9 @@
 
 /* bootstrap lg size */
 @media (max-width: 991px) {
+	.contact .container-fluid {
+		margin-top: 50px;
+	}
 	.service .title .logo,
 	.service .desc-wrapper div,
 	.service .desc-wrapper a,
