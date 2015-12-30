@@ -503,7 +503,7 @@ madsquare info
 }
 
 .info .content-img .img-center-wrapper {
-  margin-left: -20px;
+  margin-left: -15px;
 }
 .info .img-center-wrapper img {
   display: inline-block;
@@ -596,9 +596,6 @@ madsquare info
   padding-top: 50px;
 }
 
-.email {
-  width: 25%;
-}
 /*
 .snackkslider .snackk-type {
   position: absolute;
