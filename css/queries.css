@@ -1,3 +1,21 @@
+/* bootstrap sm size */
+@media (min-width: 768px) {
+	.platform div {
+		margin-bottom: 0;
+	}
+}
+
+/* bootstrap md size */
+@media (min-width: 992px) {
+	.service .content-text {
+		position: absolute;
+	}
+}
+/*
+@media (min-width: 768px) {
+	
+}*/
+
 @media screen and (max-width:1200px) {
 	header {
 		width: 90%;

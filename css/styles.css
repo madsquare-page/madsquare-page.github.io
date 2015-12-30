@@ -453,6 +453,7 @@ madsquare info
   padding-bottom: 70px;
 }
 
+
 .info .content-text p {
   color: #787878;
   font-size: 20px;
@@ -469,7 +470,7 @@ madsquare info
 .service {
   position: relative;
   background: url("../img/background.png") no-repeat center;
-  background-size: 100%;
+  background-size: cover;
 }
 
 .service .title {
@@ -482,15 +483,15 @@ madsquare info
 
 .service .content {
   height: 100%;
+  margin-bottom: 10%;
 }
 
-/*.service .content-text {
-  position: absolute;
-  height: 500px;
-  margin-left: 5%;
-}*/
+.service .content-text {
+  position: relative;
+  margin: 10% 0;
+}
 
-.service .content-text p{
+.service .content-text p {
   color: #FFFFFF;
   font-size: 20px;
 }
@@ -501,9 +502,13 @@ madsquare info
   padding-top: 50px;
 }
 
+.platform div {
+  margin-bottom: 8%;
+}
+
 .service .content-img {
-  width: 65%;
   float: right;
+  margin-right: -25%;
 }
 
 .service .content-img img{
