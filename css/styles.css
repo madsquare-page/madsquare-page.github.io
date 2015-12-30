@@ -378,6 +378,10 @@ Navigation
   margin-left: 60px;
 }
 
+.service-btn {
+  max-width: 95%;
+}
+
 .fixed {
   position: fixed;
   background: none;
