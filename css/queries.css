@@ -63,6 +63,9 @@
 
 /* bootstrap md size */
 @media (min-width: 992px) {
+	.service .desc-wrapper h4 {
+	  text-align: left;
+	}
 	.info .title {
 	  padding-bottom: 70px;
 	}
@@ -120,6 +123,9 @@
 
 /* bootstrap lg size */
 @media (max-width: 991px) {
+	.contact {
+		padding-top: 70px;
+	}
 	.snackkslider .storage img {
 		margin-bottom: 9%;
 	}

@@ -546,6 +546,11 @@ madsquare info
   color: #FFFFFF;
 }
 
+.service .desc-wrapper div {
+  padding: 0px;
+
+}
+
 .service .desc-wrapper .content-table .platform div {
   height: 40px;
   line-height: 40px;
@@ -670,7 +675,7 @@ Intro
 Alliance
 ========================================================================== */
 .alliance {
-  padding-bottom: 0px;
+  padding-bottom: 0px !important;
 }
 
 .alliance .content-text p {
@@ -686,6 +691,7 @@ Contact
 ========================================================================== */
 .contact {
   padding-bottom: 0px;
+  padding-top: 100px;
 }
 
 .contact .container-fluid {
