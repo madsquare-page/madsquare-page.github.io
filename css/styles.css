@@ -442,7 +442,7 @@ madsquare info
 }
 
 .info .container {
-  width: 960px;
+  /*width: 960px;*/
 }
 
 .info .title {
@@ -480,6 +480,10 @@ madsquare info
 
 .service .title {
   padding-bottom: 70px;
+}
+
+.service .title .logo {
+  padding-top: 30px;
 }
 
 .service .content {
