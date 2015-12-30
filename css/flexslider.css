@@ -31,6 +31,8 @@
   margin: 0;
   padding: 0;
   list-style: none;
+  height: 100%;
+  position: relative;
 }
 .flex-pauseplay span {
   text-transform: capitalize;
@@ -97,6 +99,7 @@ html[xmlns] .flexslider .slides {
   -ms-transition: all 1s ease;
   -o-transition: all 1s ease;
   transition: all 1s ease;
+  margin-left: 60px;
 }
 .loading .flex-viewport {
   max-height: 300px;
@@ -105,7 +108,10 @@ html[xmlns] .flexslider .slides {
   margin-right: 5px;
 }
 .flex-direction-nav {
-  *height: 0;
+  height: 0;
+  position: absolute;
+  width: 100%;
+  top: 50%;
 }
 .flex-direction-nav a {
   text-decoration: none;
@@ -137,10 +143,10 @@ html[xmlns] .flexslider .slides {
   content: '\f105';
 }
 .flex-direction-nav .flex-prev {
-  left: 50px;
+  left: 0px;
 }
 .flex-direction-nav .flex-next {
-  right: 50px;
+  right: 0px;
   text-align: right;
 }
  /* Custom flexslider */

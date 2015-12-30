@@ -19,12 +19,13 @@ h2 {
   color: #3D4351; }
 
 h3 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #3D4351; }
+  font-size: 24px; }
 
 h4 {
-  font-size: 18px; }
+  font-size: 20px; 
+  margin-bottom: 8%;
+  color: #fff;
+}
 
 h5 {
   font-size: 15px;
@@ -41,6 +42,9 @@ h5 {
   padding-right: 15px;
 }
 
+body {
+  background-color: #FFFCF6;
+}
 
 .btn {
   font-size: 13px;
@@ -366,11 +370,13 @@ Navigation
   position: fixed;
   width: 100%;
   z-index: 999; 
-  background-color: rgba(0,0,0,0.4);
+  background: url('../img/menu_shadow.png') repeat top;
+  background-size: 100% 100%;
 }
 
 .fixed {
   position: fixed;
+  background: none;
   background-color: rgba(0,0,0,0.4);
   z-index: 999;
   width: 100%; }
@@ -476,7 +482,7 @@ madsquare info
 
 
 .info .content-text p {
-  color: #787878;
+  color: #686869;
 }
 
 .info .content-img div {
@@ -484,8 +490,16 @@ madsquare info
   margin-bottom: 10%;
 }
 
-.info .content-img div img {
-  height: 100%;
+.info .content-img .img-center-wrapper {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: auto;
+  text-align: center;
+}
+
+.info .img-center-wrapper img {
+  display: inline-block;
 }
 
 .service {
@@ -496,35 +510,51 @@ madsquare info
 }
 
 .service .title {
-  padding-bottom: 40px;
+  margin-bottom: 3%;
 }
 
 .service .title .logo {
-  padding-top: 30px;
+  padding-top: 10%;
+  padding-left: 0px;
+  text-align: left;
 }
 
 .service .content {
   height: 100%;
   margin-bottom: 15%;
+  padding-left: 0px;
 }
 
-.service .content-text {
+.service .desc-wrapper {
   position: relative;
-  margin: 10% 0;
+  padding: 0px;
 }
 
-.service .content-text p {
+.service .desc-wrapper a {
+  padding: 0px;
+  text-align: left;
+}
+
+.service .desc-wrapper p {
   color: #FFFFFF;
 }
 
-.service .content-text .content-table .platform div {
+.service .desc-wrapper .content-table .platform div {
   height: 40px;
   line-height: 40px;
   padding-top: 50px;
 }
+.platform {
+  padding: 0px;
+}
 
-.platform div {
+.platform a {
   margin-bottom: 8%;
+  padding: 0px;
+}
+
+.platform div img {
+  max-width: 90%;
 }
 
 .service .content-img {
@@ -546,7 +576,7 @@ madsquare info
 
 .snackkslider div,
 .snackkslider p {
-  text-align: center;
+  height: 100%;
 }
 
 .snackkslider .flex-direction-nav li a {
@@ -559,9 +589,20 @@ madsquare info
   padding-top: 50px;
 }
 
-.snackkslider .snackk-type img {
-  width: 90%;
+.email {
+  width: 25%;
 }
+/*
+.snackkslider .snackk-type {
+  position: absolute;
+  right: 0px;
+}
+
+.snackkslider .snackk-type img {
+  position: absolute;
+  height: 100%;
+  bottom: 0px;
+}*/
 
 .office {
   padding: 0px;
@@ -629,7 +670,7 @@ Alliance
 }
 
 .alliance .content-text p {
-  color: #787878;
+  color: #686869;
 }
 
 .alliance .content-img img{
@@ -648,7 +689,7 @@ Contact
 }
 
 .contact .content-text p {
-  color: #787878;
+  color: #686869;
 }
 
 .contact .content-img {
