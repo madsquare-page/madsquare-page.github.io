@@ -538,7 +538,7 @@ madsquare info
 
 .service .desc-wrapper {
   position: relative;
-  padding: 0px;
+  padding: 0px 10px;
 }
 
 .service .desc-wrapper a {
