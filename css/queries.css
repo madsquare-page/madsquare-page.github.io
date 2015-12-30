@@ -7,6 +7,38 @@
 
 /* bootstrap md size */
 @media (min-width: 992px) {
+	.info .title {
+	  padding-bottom: 70px;
+	}
+
+	.info .content-text {
+	  padding-bottom: 70px;
+	}
+
+	.snackkslider .flex-direction-nav li a {
+	  margin-top: 0px;
+	}
+
+	.section-padding {
+	  padding: 100px 0;
+	}
+
+	.service .title {
+	  padding-bottom: 70px;
+	}
+
+	.service .service-title {
+	  width: 100%;
+	}
+
+	.font-desc-size {
+	  font-size: 20px;
+	}
+	
+	.content-text {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
 	.service .content-img {
 		margin-right: -25%;
 	}
