@@ -116,7 +116,10 @@
 	.service .desc-wrapper p {
 	  text-align: center;
 	}
-	.snackkslider { height: 500px; }
+	.snackkslider { 
+		height: 500px; 
+		position: relative;
+	}
 	/*.snackkslider div, .snackkslider p { height: auto; }*/
 	.snackkslider p {
     padding-top: 0px;
@@ -140,10 +143,10 @@
 	}
 
 	.flex-direction-nav .flex-prev {
-	  left: 60px;
+	  left: 20px;
 	}
 	.flex-direction-nav .flex-next {
-	  right: 60px;
+	  right: 20px;
 	}
 }
 
