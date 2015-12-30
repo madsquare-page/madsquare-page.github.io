@@ -27,6 +27,11 @@
 	    width: 100%;
 	    margin-left: 0px;
 	}
+
+	footer .footer-bottom .col-md-7 p {
+	  padding-bottom: 10px;
+	  text-align: left
+	}
 }
 
 /* bootstrap lg size */

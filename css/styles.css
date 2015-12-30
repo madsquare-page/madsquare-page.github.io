@@ -687,7 +687,11 @@ footer .footer-bottom {
 footer .footer-bottom .col-md-5 p {
   color: #fff;
   text-transform: uppercase;
-  padding-bottom: 10px;
+}
+footer .footer-bottom .col-md-7 p {
+  padding: 0px;
+  margin: 0px;
+  text-align: right;
 }
 footer .social-share a.circle {
   padding: 20px 10px;
