@@ -94,6 +94,9 @@
 
 /* bootstrap lg size */
 @media (max-width: 991px) {
+	.service .flex-viewport {
+		margin-left: 0px;
+	}
 	.contact .container-fluid {
 		margin-top: 50px;
 	}

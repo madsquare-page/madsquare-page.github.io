@@ -502,6 +502,9 @@ madsquare info
   text-align: center;
 }
 
+.info .content-img .img-center-wrapper {
+  margin-left: -20px;
+}
 .info .img-center-wrapper img {
   display: inline-block;
 }
