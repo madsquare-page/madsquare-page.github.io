@@ -137,10 +137,10 @@ html[xmlns] .flexslider .slides {
   content: '\f105';
 }
 .flex-direction-nav .flex-prev {
-  left: -50px;
+  left: 50px;
 }
 .flex-direction-nav .flex-next {
-  right: -50px;
+  right: 50px;
   text-align: right;
 }
  /* Custom flexslider */
@@ -276,11 +276,11 @@ html[xmlns] .flexslider .slides {
 /* ====================================================================================================================
  * RESPONSIVE
  * ====================================================================================================================*/
-@media screen and (max-width:860px) {
+/*@media screen and (max-width:860px) {
   .flex-direction-nav .flex-prev {
     display: none;
   }
   .flex-direction-nav .flex-next {
     display: none;
   }
-}
+}*/

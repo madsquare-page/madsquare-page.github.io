@@ -471,6 +471,7 @@ madsquare info
   position: relative;
   background: url("../img/background.png") no-repeat center;
   background-size: 100% 100%;
+  padding-bottom: 0px;
 }
 
 .service .title {
@@ -515,6 +516,15 @@ madsquare info
   width: 100%;
 }
 
+.flex-active-slide .display-table {
+  width: 100%;
+}
+
+.snackkslider div,
+.snackkslider p {
+  text-align: center;
+}
+
 .snackkslider .flex-direction-nav li a {
   opacity: 1;
 }
@@ -526,7 +536,8 @@ madsquare info
 }
 
 .snackkslider .snackk-type img {
-  width: 100%;
+  width: 70%;
+  margin-left: 25%;
 }
 
 .office {
