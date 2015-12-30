@@ -795,6 +795,10 @@ footer .footer-links {
 footer .footer-info {
   margin: 50px 0px;
 }
+footer .social-share {
+  position: absolute;
+  right: 0px;
+}
 
 /* ==========================================================================
 Icon font (http://www.elegantthemes.com/blog/freebie-of-the-week/free-line-style-icons)
