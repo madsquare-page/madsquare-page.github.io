@@ -10,7 +10,29 @@
 	.service .content-text {
 		position: absolute;
 	}
+
+	ul.slides li div:nth-of-type(1) {
+		margin: 8% 0;
+	}
+
+	.snackkslider {
+	    padding: 0 3% 0 7%;
+	}
+
+	.snackkslider .snackk-type img {
+	    width: 100%;
+	    margin-left: 0px;
+	}
 }
+
+/* bootstrap lg size */
+@media (min-width: 992px) {
+	ul.slides li div:nth-of-type(1) {
+		margin: 10% 0;
+	}
+}
+
+
 /*
 @media (min-width: 768px) {
 	
