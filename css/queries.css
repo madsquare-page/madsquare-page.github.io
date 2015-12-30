@@ -5,8 +5,25 @@
 	}
 }
 
+/* bootstrap under sm size */
+@media (max-width: 767px) {
+	header {
+		padding: 15px 0px !important;
+	}
+	.navicon { 
+		right: 0px;
+	}
+	.nav-toggle span, .nav-toggle span:before, .nav-toggle span:after {
+		width: 30px;
+	}
+}
+
 /* bootstrap md size */
 @media (min-width: 992px) {
+	.officeslider li .office-bg div {
+		background-size: 100% auto !important;
+	}
+
 	.info .title {
 	  padding-bottom: 70px;
 	}
@@ -47,7 +64,7 @@
 		position: absolute;
 	}
 
-	ul.slides li div:nth-of-type(1) {
+	.snackkslider li div:nth-of-type(1) {
 		margin: 8% 0;
 	}
 
@@ -68,7 +85,7 @@
 
 /* bootstrap lg size */
 @media (min-width: 992px) {
-	ul.slides li div:nth-of-type(1) {
+	.snackkslider li div:nth-of-type(1) {
 		margin: 10% 0;
 	}
 }

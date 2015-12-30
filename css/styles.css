@@ -354,7 +354,8 @@ Navigation
   position: absolute;
   height: 26px;
   right: 10px;
-  top: 48px;
+  top: 50% !important;
+  margin-top: -14px !important;
   visibility: hidden;
   -webkit-transition: all 300ms ease-in-out;
           transition: all 300ms ease-in-out; }
@@ -395,9 +396,15 @@ header a {
   color: #fff;
   text-transform: uppercase;
   font-size: 13px; 
+  display: inline-block;
+  width: 100%;
+}
+header a img {
+  max-width: 100%;
 }
 header .logo {
   display: inline-block; 
+  max-width: 70%;
 }
 header ul.menu {
   display: inline-block;
@@ -563,8 +570,35 @@ madsquare info
   bottom: 40px;
 }
 
-.officeslider .office-bg img{
+.officeslider .office-bg div {
   width: 100%;
+  height: 500px;
+  margin: 0 !important;
+}
+
+.officeslider li:nth-of-type(2) .office-bg div {
+  background: url('../img/img4.jpg') no-repeat center;
+  background-size: auto 100%;
+}
+
+.officeslider li:nth-of-type(3) .office-bg div {
+  background: url('../img/img2.jpg') no-repeat center;
+  background-size: auto 100%;
+}
+
+.officeslider li:nth-of-type(4) .office-bg div {
+  background: url('../img/img3.jpg') no-repeat center;
+  background-size: auto 100%;
+}
+
+.officeslider li:nth-of-type(5) .office-bg div {
+  background: url('../img/img1.jpg') no-repeat center;
+  background-size: auto 100%;
+}
+
+.officeslider li:nth-of-type(6) .office-bg div {
+  background: url('../img/img5.jpg') no-repeat center;
+  background-size: auto 100%;
 }
 
 /* ==========================================================================
