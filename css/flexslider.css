@@ -209,6 +209,11 @@ html[xmlns] .flexslider .slides {
 .flex-pauseplay a.flex-play:before {
   content: '\f04b';
 }
+
+.officeslider .flex-control-nav {
+  position: relative;
+}
+
 .flex-control-nav {
   width: 100%;
   position: absolute;
@@ -219,14 +224,16 @@ html[xmlns] .flexslider .slides {
   margin: 0 6px;
   display: inline-block;
   zoom: 1;
-  *display: inline;
+  line-height: 100%;
+  vertical-align: top;
+  /*display: inline;*/
 }
 .flex-control-paging li a {
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
   display: block;
-  background: #5C5F6A;
-  background: rgba(92, 95, 106, 1);
+  background-color: rgba(0, 0, 0, 0);
+  border: solid 2px rgba(255, 255, 255, 0.75);
   cursor: pointer;
   text-indent: -9999px;
   -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
@@ -243,8 +250,8 @@ html[xmlns] .flexslider .slides {
   background: rgba(255, 255, 255, 1);
 }
 .flex-control-paging li a.flex-active {
-  background: rgba(255, 255, 255, 0);
-  border: solid 2px #fff;
+  background: rgba(255, 255, 255, 0.75);
+  border: none;
   cursor: default;
   line-height: 1.2;
 }

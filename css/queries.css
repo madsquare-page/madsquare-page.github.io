@@ -66,6 +66,11 @@
 
 /* bootstrap md size */
 @media (min-width: 992px) {
+	header .header-nav {
+	    position: absolute;
+	    right: 0px;
+	    line-height: 40px;
+	}
 	.service .desc-wrapper h4 {
 	  text-align: left;
 	}
@@ -73,9 +78,6 @@
 	  padding-bottom: 70px;
 	}
 
-	.info .content-text {
-	  padding-bottom: 70px;
-	}
 
 	.snackkslider .flex-direction-nav li a {
 	  margin-top: 0px;
@@ -98,12 +100,13 @@
 		padding-right: 0px;
 	}
 	.service .content-img {
-		margin-right: -25%;
+		margin-right: -29%;
 	}
 
 	.service .desc-wrapper {
 		position: absolute;
 		z-index: 1;
+		padding-left: 0px;
 	}
 
 	.snackkslider li div:nth-of-type(1) {
@@ -121,6 +124,14 @@
 	footer .footer-bottom .col-md-7 p {
 	  padding-bottom: 10px;
 	  text-align: left
+	}
+
+	footer .footer-bottom .text-right {
+		padding-right: 0px;
+	}
+
+	footer .container {
+		width: 1100px;
 	}
 }
 
