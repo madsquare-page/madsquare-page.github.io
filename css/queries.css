@@ -16,6 +16,9 @@
 
 /* bootstrap under sm size */
 @media (max-width: 767px) {
+	footer .footer-top {
+		margin-bottom: 0px !important;
+	}
 	header {
 		padding: 15px 0px !important;
 	}
@@ -123,6 +126,15 @@
 
 /* bootstrap lg size */
 @media (max-width: 991px) {
+	footer .footer-top {
+		margin-bottom: 30px;
+	}
+	footer .social-share {
+		text-align: left;
+	}
+	footer .footer-bottom p {
+		text-align: left;
+	}
 	.contact {
 		padding-top: 70px;
 	}
@@ -477,11 +489,6 @@
 
 	.blog-intro .rightcol {
 		padding: 0 20px;
-	}
-
-	footer .social-share {
-
-		/*display: none;*/
 	}
 
 	footer .footer-links {

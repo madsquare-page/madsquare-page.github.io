@@ -359,7 +359,7 @@ Navigation
   height: 26px;
   right: 10px;
   top: 50% !important;
-  margin-top: -14px !important;
+  margin-top: -13px !important;
   visibility: hidden;
   -webkit-transition: all 300ms ease-in-out;
           transition: all 300ms ease-in-out; }
@@ -742,15 +742,15 @@ Contact
 Footer
 ========================================================================== */
 footer {
-  background-color: #000000;
+  background-color: #202020;
   position: relative; 
   }
 footer p {
-  color: #ACB1B4;
+  color: #858585;
   font-size: 13px;
 }
 footer a {
-  color: #fff;
+  color: #858585;
 }
 footer a:hover {
   color: #FF5274;
@@ -785,20 +785,26 @@ footer .footer-top {
   margin: 50px 0px;
   position: relative;
 }
+footer .footer-top p span {
+  color: #D6D5D4;
+  font-size: 15px;
+}
 footer .footer-bottom {
   margin-bottom: 30px;
 }
 footer .footer-bottom .col-md-5 p {
-  color: #fff;
+  color: #858585;
   text-transform: uppercase;
 }
 footer .footer-bottom .col-md-7 p {
   padding: 0px;
   margin: 0px;
-  text-align: right;
 }
 footer .social-share a.circle {
   padding: 20px 10px;
+}
+footer .social-share a.circle img {
+  width: 38px;
 }
 footer .footer-links {
   margin: 120px 0 120px 0;
@@ -806,10 +812,10 @@ footer .footer-links {
 footer .footer-info {
   margin: 50px 0px;
 }
-footer .social-share {
+/*footer .social-share {
   position: absolute;
   right: 0px;
-}
+}*/
 
 /* ==========================================================================
 Icon font (http://www.elegantthemes.com/blog/freebie-of-the-week/free-line-style-icons)
