@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang='ko'>
+<head>
+  <style type="text/css">
+    .result {
+      width: 30%;
+      display: inline-block;
+      margin: 0 auto;
+      border: 1px solid #000;
+      vertical-align: top;
+      margin-bottom: 30px;
+    }
+    .title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .updated {
+      margin-top: 30px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div id="updatedWeb" class='updated'></div>
+  <div class='result'>
+    <div class='title'>[ko] web-json</div>
+    <div id="resultWebKO"></div>
+  </div>
+  <div class='result'>
+    <div class='title'>[en] web-json</div>
+    <div id="resultWebEN"></div>
+  </div>
+  <div class='result'>
+    <div class='title'>[tw] web-json</div>
+    <div id="resultWebTW"></div>
+  </div>
+  <div id="updatedApp" class='updated'></div>
+  <div class='result'>
+    <div class='title'>[ko] app-xml</div>
+    <div id="resultAppXmlKO"></div>
+  </div>
+  <div class='result'>
+    <div class='title'>[en] app-xml</div>
+    <div id="resultAppXmlEN"></div>
+  </div>
+  <div class='result'>
+    <div class='title'>[tw] app-xml</div>
+    <div id="resultAppXmlTW"></div>
+  </div>
+  <div class='result'>
+    <div class='title'>[ko] app-string</div>
+    <div id="resultAppStringKO"></div>
+  </div>
+  <div class='result'>
+    <div class='title'>[en] app-string</div>
+    <div id="resultAppStringEN"></div>
+  </div>
+  <div class='result'>
+    <div class='title'>[tw] app-string</div>
+    <div id="resultAppStringTW"></div>
+  </div>
+  <script>
+    function jsonParseWeb(root) {
+      var feed = root.feed;
+      var entries = feed.entry || [];
+      var html_KO = [], html_EN = [], html_TW = [];
+      var result_KO = {}, result_EN = {}, result_TW = {};
+
+      for (var i = 0; i < entries.length; ++i) {
+        var entry = entries[i];
+        var obj = {}, objEn = {}, objTw = {};
+
+        if (!result_KO[entry.title.$t]) {
+          result_KO[entry.title.$t] = {};
+          result_EN[entry.title.$t] = {};
+          result_TW[entry.title.$t] = {};
+        } else {
+          obj = result_KO[entry.title.$t];
+          objEn = result_EN[entry.title.$t];
+          objTw = result_TW[entry.title.$t];
+        }
+
+        var content = entry.content.$t;
+        var key = ''
+        jsonDepth = content.match(/objectdepth1: (\S+)|objectdepth2: (\S+)|objectdepth3: (\S+)|objectdepth4: (\S+)/gmi);
+        for (var j = 0; j < jsonDepth.length; j++) {
+          key = /: (\S+),/.exec(jsonDepth[j])[1];
+
+          if (!obj[key]) {
+            obj[key] = {};
+            objEn[key] = {};
+            objTw[key] = {};
+            if (j + 1 == jsonDepth.length) {
+              break;
+            }
+          }
+          obj = obj[key];
+          objEn = objEn[key];
+          objTw = objTw[key];
+        }
+        obj[key] = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
+        objEn[key] = content.match(/stringen: ([^\r\t\f]+), stringtw/mi)[1];
+        objTw[key] = content.match(/stringtw: ([^\r\t\f]+), stringcomment/mi)[1];
+      }
+
+      html_KO.push(JSON.stringify(result_KO));
+      html_EN.push(JSON.stringify(result_EN));
+      html_TW.push(JSON.stringify(result_TW));
+      document.getElementById("resultWebKO").innerText = html_KO.join("");
+      document.getElementById("resultWebEN").innerText = html_EN.join("");
+      document.getElementById("resultWebTW").innerText = html_TW.join("");
+      document.getElementById("updatedWeb").innerText = 'web string last updated: '+ feed.updated.$t;
+    }
+
+    function jsonParseApp(root) {
+      var feed = root.feed;
+      var entries = feed.entry || [];
+
+      var ios_KO = [], ios_EN = [], ios_TW = [];
+      var android_KO = [], android_EN = [], android_TW = [];
+
+      android_KO.push("<resources>");
+      android_EN.push("<resources>");
+      android_TW.push("<resources>");
+      for (var i = 0; i < entries.length; ++i) {
+        var entry = entries[i];
+
+        if (!entry.content.$t.match(/stringko: ([^\r\t\f]+), stringen/mi))
+          debugger;
+        valueKO = entry.content.$t.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
+        valueEN = entry.content.$t.match(/stringen: ([^\r\t\f]+), stringtw/mi)[1];
+        valueTW = entry.content.$t.match(/stringtw: ([^\r\t\f]+), stringcomment/mi)[1];
+        android_KO.push("<string name='" + entry.title.$t + "'>" + valueKO + "</string>");
+        android_EN.push("<string name='" + entry.title.$t + "'>" + valueEN + "</string>");
+        android_TW.push("<string name='" + entry.title.$t + "'>" + valueTW + "</string>");
+        ios_KO.push('"' + entry.title.$t + '": "' + valueKO + '";');
+        ios_EN.push('"' + entry.title.$t + '": "' + valueEN + '";');
+        ios_TW.push('"' + entry.title.$t + '": "' + valueTW + '";');
+      }
+
+      android_KO.push("</resources>");
+      android_EN.push("</resources>");
+      android_TW.push("</resources>");
+
+      document.getElementById("resultAppXmlKO").innerText = android_KO.join("\n");
+      document.getElementById("resultAppStringKO").innerText = ios_KO.join("\n");
+      document.getElementById("resultAppXmlEN").innerText = android_EN.join("\n");
+      document.getElementById("resultAppStringEN").innerText = ios_EN.join("\n");
+      document.getElementById("resultAppXmlTW").innerText = android_TW.join("\n");
+      document.getElementById("resultAppStringTW").innerText = ios_TW.join("\n");
+
+      document.getElementById("updatedApp").innerText = 'app string last updated: '+ feed.updated.$t;
+    }
+  </script>
+
+   <script type="text/javascript" src="https://spreadsheets.google.com/feeds/list/1G3SufU1BYPaKyx2UgUHLPvyANDH5OvMcFAuIAAR0FHg/1/public/basic?alt=json&callback=jsonParseWeb"></script>
+   <script type="text/javascript" src="https://spreadsheets.google.com/feeds/list/1G3SufU1BYPaKyx2UgUHLPvyANDH5OvMcFAuIAAR0FHg/2/public/basic?alt=json&callback=jsonParseApp"></script>
+</body>
+</html>
