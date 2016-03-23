@@ -36,6 +36,19 @@
     <div class='title'>[tw] web-json</div>
     <div id="resultWebTW"></div>
   </div>
+  <div id="updatedWebServer" class='updated'></div>
+  <div class='result'>
+    <div class='title'>[ko] web-server-json</div>
+    <div id="resultWebServerKO"></div>
+  </div>
+  <div class='result'>
+    <div class='title'>[en] web-server-json</div>
+    <div id="resultWebServerEN"></div>
+  </div>
+  <div class='result'>
+    <div class='title'>[tw] web-server-json</div>
+    <div id="resultWebServerTW"></div>
+  </div>
   <div id="updatedApp" class='updated'></div>
   <div class='result'>
     <div class='title'>[ko] app-xml</div>
@@ -160,10 +173,54 @@
 
       document.getElementById("updatedApp").innerText = 'app string last updated: '+ feed.updated.$t;
     }
-  </script>
 
-   <script type="text/javascript" src="https://spreadsheets.google.com/feeds/list/1G3SufU1BYPaKyx2UgUHLPvyANDH5OvMcFAuIAAR0FHg/1/public/basic?alt=json&callback=jsonParseWeb"></script>
-   <script type="text/javascript" src="https://spreadsheets.google.com/feeds/list/1G3SufU1BYPaKyx2UgUHLPvyANDH5OvMcFAuIAAR0FHg/2/public/basic?alt=json&callback=jsonParseApp"></script>
-   <script type="text/javascript" src="https://spreadsheets.google.com/feeds/list/1G3SufU1BYPaKyx2UgUHLPvyANDH5OvMcFAuIAAR0FHg/3/public/basic?alt=json&callback=jsonParseAppIos"></script>
+    function jsonParseWebServer(root) {
+      var feed = root.feed;
+      var entries = feed.entry || [];
+      var html_KO = [], html_EN = [], html_TW = [];
+      var result_KO = {}, result_EN = {}, result_TW = {};
+
+      for (var i = 0; i < entries.length; ++i) {
+        var entry = entries[i];
+        var obj = {}, objEn = {}, objTw = {};
+
+        var key = entry.title.$t;
+        if (!result_KO[key]) {
+          result_KO[key] = {}, result_EN[key] = {}, result_TW[key] = {};
+        }
+        obj = result_KO[key], objEn = result_EN[key], objTw = result_TW[key];
+
+        var content = entry.content.$t;
+        var key = ''
+        jsonDepth = content.match(/objectdepth1: (\S+)|objectdepth2: (\S+)|objectdepth3: (\S+)|objectdepth4: (\S+)/gmi);
+        for (var j = 0; j < jsonDepth.length; j++) {
+          key = /: (\S+),/.exec(jsonDepth[j])[1];
+
+          if (!obj[key]) {
+            obj[key] = {}, objEn[key] = {}, objTw[key] = {};
+            if (j + 1 == jsonDepth.length) {
+              break;
+            }
+          }
+          obj = obj[key], objEn = objEn[key], objTw = objTw[key];
+        }
+        obj[key] = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
+        objEn[key] = content.match(/stringen: ([^\r\t\f]+), stringtw/mi)[1];
+        objTw[key] = content.match(/stringtw: ([^\r\t\f]+), stringcomment/mi)[1];
+      }
+
+      html_KO.push(JSON.stringify(result_KO));
+      html_EN.push(JSON.stringify(result_EN));
+      html_TW.push(JSON.stringify(result_TW));
+      document.getElementById("resultWebServerKO").innerText = html_KO.join("");
+      document.getElementById("resultWebServerEN").innerText = html_EN.join("");
+      document.getElementById("resultWebServerTW").innerText = html_TW.join("");
+      document.getElementById("updatedWebServer").innerText = 'web string last updated: '+ feed.updated.$t;
+    }
+  </script>
+  <script type="text/javascript" src="https://spreadsheets.google.com/feeds/list/1G3SufU1BYPaKyx2UgUHLPvyANDH5OvMcFAuIAAR0FHg/1/public/basic?alt=json&callback=jsonParseWeb"></script>
+  <script type="text/javascript" src="https://spreadsheets.google.com/feeds/list/1G3SufU1BYPaKyx2UgUHLPvyANDH5OvMcFAuIAAR0FHg/2/public/basic?alt=json&callback=jsonParseApp"></script>
+  <script type="text/javascript" src="https://spreadsheets.google.com/feeds/list/1G3SufU1BYPaKyx2UgUHLPvyANDH5OvMcFAuIAAR0FHg/3/public/basic?alt=json&callback=jsonParseAppIos"></script>
+  <script type="text/javascript" src="https://spreadsheets.google.com/feeds/list/1G3SufU1BYPaKyx2UgUHLPvyANDH5OvMcFAuIAAR0FHg/4/public/basic?alt=json&callback=jsonParseWebServer"></script>
 </body>
 </html>
