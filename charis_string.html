@@ -3,7 +3,7 @@
 <head>
   <style type="text/css">
     .result {
-      width: 30%;
+      width: 45%;
       display: inline-block;
       margin: 0 auto;
       border: 1px solid #000;
@@ -36,22 +36,26 @@
     <div class='title'>[tw] web-json</div>
     <div id="resultWebTW"></div>
   </div>
+  <div class='result'>
+    <div class='title'>[cn] web-json</div>
+    <div id="resultWebCN"></div>
+  </div>
   <script>
     function jsonParseWeb(root) {
       var feed = root.feed;
       var entries = feed.entry || [];
-      var html_KO = [], html_EN = [], html_TW = [];
-      var result_KO = {}, result_EN = {}, result_TW = {};
+      var html_KO = [], html_EN = [], html_TW = [], html_CN = [];
+      var result_KO = {}, result_EN = {}, result_TW = {}, result_CN = {};
 
       for (var i = 0; i < entries.length; ++i) {
         var entry = entries[i];
-        var obj = {}, objEn = {}, objTw = {};
+        var obj = {}, objEn = {}, objTw = {}, objCn = {};
 
         var title = entry.title.$t;
         if (!result_KO[title]) {
-          result_KO[title] = {}, result_EN[title] = {}, result_TW[title] = {};
+          result_KO[title] = {}, result_EN[title] = {}, result_TW[title] = {}, result_CN[title] = {};
         }
-        obj = result_KO[title], objEn = result_EN[title], objTw = result_TW[title];
+        obj = result_KO[title], objEn = result_EN[title], objTw = result_TW[title], objCn = result_CN[title];
 
         var content = entry.content.$t;
         jsonDepth = content.match(/objectdepth1: (\S+)|objectdepth2: (\S+)|objectdepth3: (\S+)|objectdepth4: (\S+)/gmi);
@@ -60,31 +64,35 @@
         if (!jsonDepth) {
           result_KO[title] = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
           result_EN[title] = content.match(/stringen: ([^\r\t\f]+), stringtw/mi)[1];
-          result_TW[title] = content.match(/stringtw: ([^\r\t\f]+), end/mi)[1];
+          result_TW[title] = content.match(/stringtw: ([^\r\t\f]+), stringcn/mi)[1];
+          result_CN[title] = content.match(/stringcn: ([^\r\t\f]+), end/mi)[1];
         } else {
           for (var j = 0; j < jsonDepth.length; j++) {
             key = /: (\S+),/.exec(jsonDepth[j])[1];
 
             if (!obj[key]) {
-              obj[key] = {}, objEn[key] = {}, objTw[key] = {};
+              obj[key] = {}, objEn[key] = {}, objTw[key] = {}, objCn[key] = {};
               if (j + 1 == jsonDepth.length) {
                 break;
               }
             }
-            obj = obj[key], objEn = objEn[key], objTw = objTw[key];
+            obj = obj[key], objEn = objEn[key], objTw = objTw[key], objCn = objCn[key];
           }
           obj[key] = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
           objEn[key] = content.match(/stringen: ([^\r\t\f]+), stringtw/mi)[1];
-          objTw[key] = content.match(/stringtw: ([^\r\t\f]+), end/mi)[1];
+          objTw[key] = content.match(/stringtw: ([^\r\t\f]+), stringcn/mi)[1];
+          objCn[key] = content.match(/stringcn: ([^\r\t\f]+), end/mi)[1];
         }
       }
 
       html_KO.push(JSON.stringify(result_KO));
       html_EN.push(JSON.stringify(result_EN));
       html_TW.push(JSON.stringify(result_TW));
+      html_CN.push(JSON.stringify(result_CN));
       document.getElementById("resultWebKO").innerText = html_KO.join("");
       document.getElementById("resultWebEN").innerText = html_EN.join("");
       document.getElementById("resultWebTW").innerText = html_TW.join("");
+      document.getElementById("resultWebCN").innerText = html_CN.join("");
       document.getElementById("updatedWeb").innerText = 'web string last updated: '+ feed.updated.$t;
     }
 
