@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang='ko'>
+<head>
+  <style type="text/css">
+    .result {
+      width: 45%;
+      display: inline-block;
+      margin: 0 auto;
+      border: 1px solid #000;
+      vertical-align: top;
+      margin-bottom: 30px;
+    }
+    .title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .updated {
+      margin-top: 30px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/lodash/4.11.1/lodash.min.js"></script>
+  <div id="updatedWeb" class='updated'></div>
+  <div class='result'>
+    <div class='title'>[en] web-json</div>
+    <div id="resultWebEN"></div>
+  </div>
+  <script>
+    function jsonParseWeb(root) {
+      var feed = root.feed;
+      var entries = feed.entry || [];
+      var html_EN = [];
+      window['result_EN'] = {};
+
+      for (var i = 0; i < entries.length; ++i) {
+        var entry = entries[i];
+        var objEn = {};
+
+        var title = entry.title.$t;
+        if (!window.result_EN[title]) {
+          window.result_EN[title] = {};
+        }
+        objEn = window.result_EN[title];
+
+        var content = entry.content.$t;
+        jsonDepth = content.match(/depth1: (\S+)|depth2: (\S+)/gmi);
+
+        var key = ''
+        if (!jsonDepth) {
+          window.result_EN[title] = content.match(/content: ([^\r\t\f]+)/mi)[1];
+        } else {
+          for (var j = 0; j < jsonDepth.length; j++) {
+            key = /: (\S+),/.exec(jsonDepth[j])[1];
+
+            if (!objEn[key]) {
+              objEn[key] = {};
+              if (j + 1 == jsonDepth.length) {
+                break;
+              }
+            } 
+            if (objEn[key].constructor == Object) {
+              objEn = objEn[key];
+            } else if (typeof objEn[key] == 'string') {
+              var temp = objEn[key];
+              objEn[key] = [];
+              objEn[key].push(temp);
+            }
+          }
+          if (!content.match(/content: ([^\r\t\f]+)/mi)) {
+            debugger;
+          }
+          if (Object.keys(objEn[key]).length > 0) {
+            objEn[key].push(content.match(/content: ([^\r\t\f]+)/mi)[1]);
+          } else {
+            objEn[key] = content.match(/content: ([^\r\t\f]+)/mi)[1];
+          }
+        }
+      }
+    }
+
+    function resourcesParse(root) {
+
+      var feed = root.feed;
+      var entries = feed.entry || [];
+      var html_EN = [];
+
+      for (var i = 0; i < entries.length; ++i) {
+        var entry = entries[i];
+        var objEn = {};
+
+        var title = entry.title.$t;
+        if (!window.result_EN[title]) {
+          window.result_EN[title] = {};
+        }
+
+        if (typeof window.result_EN[title]['resources'] == 'undefined') {
+          window.result_EN[title]['resources'] = objEn;
+        } else {
+          if (window.result_EN[title]['resources'].constructor == Object) {
+            var temp = window.result_EN[title]['resources'];
+            window.result_EN[title]['resources'] = [];
+            window.result_EN[title]['resources'].push(temp);
+          }
+          window.result_EN[title]['resources'].push(objEn);
+        }
+
+        var content = entry.content.$t;
+        objEn['rs_url'] = content.match(/rsurl: ([^\r\t\f]+), name/mi)[1];
+        objEn['name'] = content.match(/name: ([^\r\t\f]+), duration/mi)[1];
+        objEn['duration'] = content.match(/duration: ([^\r\t\f]+), thumburl/mi)[1];
+        objEn['thumb_url'] = content.match(/thumburl: ([^\r\t\f]+)/mi)[1];
+
+        window.result_EN[title]['totalcount'] = window.result_EN[title]['resources'].length;
+      }
+
+      var obj = {}
+      obj['channel'] = _.values(window.result_EN);
+      html_EN.push(JSON.stringify(obj));
+      document.getElementById("resultWebEN").innerText = html_EN.join("");
+      document.getElementById("updatedWeb").innerText = 'web string last updated: '+ feed.updated.$t;
+    }
+
+  </script>
+  
+  <script type="text/javascript" src="https://spreadsheets.google.com/feeds/list/1CrELTN6AUeTMs0niJOxEw3aHB7yS1br3v9UhDxt8SLE/1/public/basic?alt=json&callback=jsonParseWeb"></script>
+  <script type="text/javascript" src="https://spreadsheets.google.com/feeds/list/1CrELTN6AUeTMs0niJOxEw3aHB7yS1br3v9UhDxt8SLE/2/public/basic?alt=json&callback=resourcesParse"></script>
+</body>
+</html>
