@@ -115,6 +115,13 @@
         objEn['thumb_url'] = content.match(/thumburl: ([^\r\t\f]+)/mi)[1];
 
         window.result_EN[title]['totalcount'] = window.result_EN[title]['resources'].length;
+
+        if (i < 3) {
+          if (!window.result_EN[title]['thumb_urls']) {
+            window.result_EN[title]['thumb_urls'] = [];
+          }
+          window.result_EN[title]['thumb_urls'].push(objEn['thumb_url']);
+        }
       }
 
       var obj = {}
