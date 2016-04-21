@@ -112,7 +112,7 @@
         objEn['rs_url'] = content.match(/rsurl: ([^\r\t\f]+), name/mi)[1];
         objEn['name'] = content.match(/name: ([^\r\t\f]+), duration/mi)[1];
         objEn['duration'] = content.match(/duration: ([^\r\t\f]+), thumburl/mi)[1];
-        objEn['thumb_url'] = content.match(/thumburl: ([^\r\t\f]+)/mi)[1];
+        objEn['thumb_url'] = content.match(/thumburl: ([^\r\t\f]+), end/mi)[1];
 
         window.result_EN[title]['totalcount'] = window.result_EN[title]['resources'].length;
 
