@@ -20,27 +20,70 @@
       font-size: 12px;
       font-weight: bold;
     }
+    .yaml {
+      white-space: pre;
+    }
+    textarea {
+      width: 99%;
+      height: 300px;
+    }
   </style>
+  <script type="text/javascript" src="./js/jquery.min.js"></script>
+  <script type="text/javascript" src="./js/js-yaml.js"></script>
 </head>
 <body>
   <div id="updatedWeb" class='updated'></div>
-  <div class='result'>
-    <div class='title'>[ko] web-json</div>
-    <div id="resultWebKO"></div>
+  <div>
+    <button onclick="tab('json')">JSON</button>
+    <button onclick="tab('yaml')">YAML</button>
   </div>
-  <div class='result'>
-    <div class='title'>[en] web-json</div>
-    <div id="resultWebEN"></div>
+  <div id="json">
+    <div class='result'>
+      <div class='title'>[ko] web-json</div>
+      <div id="resultWebKO"></div>
+    </div>
+    <div class='result'>
+      <div class='title'>[en] web-json</div>
+      <div id="resultWebEN"></div>
+    </div>
+    <div class='result'>
+      <div class='title'>[tw] web-json</div>
+      <div id="resultWebTW"></div>
+    </div>
+    <div class='result'>
+      <div class='title'>[cn] web-json</div>
+      <div id="resultWebCN"></div>
+    </div>
   </div>
-  <div class='result'>
-    <div class='title'>[tw] web-json</div>
-    <div id="resultWebTW"></div>
-  </div>
-  <div class='result'>
-    <div class='title'>[cn] web-json</div>
-    <div id="resultWebCN"></div>
+  <div id="yaml" style="display: none;">
+    <div class='result'>
+      <div class='title'>[ko] web-yaml</div>
+      <textarea id="resultYAMLWebKO" class="yaml"></textarea>
+    </div>
+    <div class='result'>
+      <div class='title'>[en] web-yaml</div>
+      <textarea id="resultYAMLWebEN" class="yaml"></textarea>
+    </div>
+    <div class='result'>
+      <div class='title'>[tw] web-yaml</div>
+      <textarea id="resultYAMLWebTW" class="yaml"></textarea>
+    </div>
+    <div class='result'>
+      <div class='title'>[cn] web-yaml</div>
+      <textarea id="resultYAMLWebCN" class="yaml"></textarea>
+    </div>
   </div>
   <script>
+    function tab(type) {
+      if (type === 'json') {
+        $('#json').show()
+        $('#yaml').hide()
+      } else if (type === 'yaml') {
+        $('#json').hide()
+        $('#yaml').show()
+      }
+    }
+
     function jsonParseWeb(root) {
       var feed = root.feed;
       var entries = feed.entry || [];
@@ -93,6 +136,18 @@
       document.getElementById("resultWebEN").innerText = html_EN.join("");
       document.getElementById("resultWebTW").innerText = html_TW.join("");
       document.getElementById("resultWebCN").innerText = html_CN.join("");
+      
+      
+      var yamlKO = jsyaml.safeDump(jsyaml.load(html_KO.join(""))) 
+      var yamlEN = jsyaml.safeDump(jsyaml.load(html_EN.join("")))
+      var yamlTW = jsyaml.safeDump(jsyaml.load(html_TW.join("")))
+      var yamlCN = jsyaml.safeDump(jsyaml.load(html_CN.join("")))
+
+      document.getElementById("resultYAMLWebKO").value = yamlKO;
+      document.getElementById("resultYAMLWebEN").value = yamlEN;
+      document.getElementById("resultYAMLWebTW").value = yamlTW;
+      document.getElementById("resultYAMLWebCN").value = yamlCN;
+
       document.getElementById("updatedWeb").innerText = 'web string last updated: '+ feed.updated.$t;
     }
 
