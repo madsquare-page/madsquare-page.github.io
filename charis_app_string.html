@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang='ko'>
+<head>
+  <style type="text/css">
+    .result {
+      width: 45%;
+      display: inline-block;
+      margin: 0 auto;
+      border: 1px solid #000;
+      vertical-align: top;
+      margin-bottom: 30px;
+    }
+    .title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .updated {
+      margin-top: 30px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    textarea {
+      width: 99%;
+      height: 300px;
+      
+    }
+
+    textarea.pre {
+      white-space: pre;
+    }
+  </style>
+  <script type="text/javascript" src="./js/jquery.min.js"></script>
+</head>
+<body>
+  <div>
+    <button onclick="tab('android')">ANDROID</button>
+    <button onclick="tab('ios')">IOS</button>
+  </div>
+  <div id="android">
+    <div id="updatedAppAndroid" class='updated'></div>
+    <div class='result'>
+      <div class='title'>[ko] app-xml</div>
+      <textarea class="pre" id="resultAppXmlKO"></textarea>
+    </div>
+    <div class='result'>
+      <div class='title'>[en] app-xml</div>
+      <textarea class="pre" id="resultAppXmlEN"></textarea>
+    </div>
+    <div class='result'>
+      <div class='title'>[tw] app-xml</div>
+      <textarea class="pre" id="resultAppXmlTW"></textarea>
+    </div>
+    <div class='result'>
+      <div class='title'>[cn] app-xml</div>
+      <textarea class="pre" id="resultAppXmlCN"></textarea>
+    </div>
+  </div>
+  <div id="ios" style="display: none;">
+    <div id="updatedAppIOS" class='updated'></div>
+    <div class='result'>
+      <div class='title'>[ko] app-string</div>
+      <textarea id="resultAppStringKO"></textarea>
+    </div>
+    <div class='result'>
+      <div class='title'>[en] app-string</div>
+      <textarea id="resultAppStringEN"></textarea>
+    </div>
+    <div class='result'>
+      <div class='title'>[tw] app-string</div>
+      <textarea id="resultAppStringTW"></textarea>
+    </div>
+    <div class='result'>
+      <div class='title'>[cn] app-string</div>
+      <textarea id="resultAppStringCN"></textarea>
+    </div>
+  </div>
+  <script>
+    
+    function tab(type) {
+      if (type === 'android') {
+        $('#android').show()
+        $('#ios').hide()
+      } else if (type === 'ios') {
+        $('#android').hide()
+        $('#ios').show()
+      }
+    }
+
+    function jsonParseAppAndroid(root) {
+      var feed = root.feed;
+      var entries = feed.entry || [];
+
+      var android_KO = [];
+      var android_EN = [];
+      var android_TW = [];
+      var android_CN = [];
+
+      android_KO.push("<resources>");
+      android_EN.push("<resources>");
+      android_TW.push("<resources>");
+      android_CN.push("<resources>");
+      for (var i = 0; i < entries.length; ++i) {
+        var entry = entries[i];
+        var title = entry.title.$t;
+        var content = entry.content.$t;
+
+        valueKO = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
+        valueEN = content.match(/stringen: ([^\r\t\f]+), stringtw/mi)[1];
+        valueTW = content.match(/stringtw: ([^\r\t\f]+), stringcn/mi)[1];
+        valueCN = content.match(/stringcn: ([^\r\t\f]+), end/mi)[1];
+        android_KO.push("<string name='" + title + "'>" + valueKO + "</string>");
+        android_EN.push("<string name='" + title + "'>" + valueEN + "</string>");
+        android_TW.push("<string name='" + title + "'>" + valueTW + "</string>");
+        android_CN.push("<string name='" + title + "'>" + valueCN + "</string>");
+      }
+
+      android_KO.push("</resources>");
+      android_EN.push("</resources>");
+      android_TW.push("</resources>");
+      android_CN.push("</resources>");
+
+      document.getElementById("resultAppXmlKO").innerText = android_KO.join("\n");
+      document.getElementById("resultAppXmlEN").innerText = android_EN.join("\n");
+      document.getElementById("resultAppXmlTW").innerText = android_TW.join("\n");
+      document.getElementById("resultAppXmlCN").innerText = android_CN.join("\n");
+
+      document.getElementById("updatedAppAndroid").innerText = 'app string last updated: '+ feed.updated.$t;
+    }
+    function jsonParseAppIos(root) {
+      var feed = root.feed;
+      var entries = feed.entry || [];
+
+      var ios_KO = []
+      var ios_EN = []
+      var ios_TW = []
+      var ios_CN = []
+
+      for (var i = 0; i < entries.length; ++i) {
+        var entry = entries[i];
+        var title = entry.title.$t;
+        var content = entry.content.$t;
+
+        valueKO = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
+        valueEN = content.match(/stringen: ([^\r\t\f]+), stringtw/mi)[1];
+        valueTW = content.match(/stringtw: ([^\r\t\f]+), stringcn/mi)[1];
+        valueCN = content.match(/stringcn: ([^\r\t\f]+), end/mi)[1];
+        console.log(valueKO)
+        console.log(valueCN)
+        ios_KO.push('"' + title + '": "' + valueKO + '";');
+        ios_EN.push('"' + title + '": "' + valueEN + '";');
+        ios_TW.push('"' + title + '": "' + valueTW + '";');
+        ios_CN.push('"' + title + '": "' + valueCN + '";');
+      }
+
+      document.getElementById("resultAppStringKO").innerText = ios_KO.join("\n");
+      document.getElementById("resultAppStringEN").innerText = ios_EN.join("\n");
+      document.getElementById("resultAppStringTW").innerText = ios_TW.join("\n");
+      document.getElementById("resultAppStringCN").innerText = ios_CN.join("\n");
+
+      document.getElementById("updatedAppIOS").innerText = 'app string last updated: '+ feed.updated.$t;
+    }
+
+    
+  </script>
+  <script type="text/javascript" src="https://spreadsheets.google.com/feeds/list/10mbtOItx-YSoWEc5NitF2Fy56ib24SMWmvnO92jl9cs/2/public/basic?alt=json&callback=jsonParseAppAndroid"></script>
+  <script type="text/javascript" src="https://spreadsheets.google.com/feeds/list/10mbtOItx-YSoWEc5NitF2Fy56ib24SMWmvnO92jl9cs/2/public/basic?alt=json&callback=jsonParseAppIos"></script>
+</body>
+</html>
