@@ -109,10 +109,10 @@
         valueEN = content.match(/stringen: ([^\r\t\f]+), stringtw/mi)[1];
         valueTW = content.match(/stringtw: ([^\r\t\f]+), stringcn/mi)[1];
         valueCN = content.match(/stringcn: ([^\r\t\f]+), end/mi)[1];
-        android_KO.push("<string name='" + title + "'>" + valueKO + "</string>");
-        android_EN.push("<string name='" + title + "'>" + valueEN + "</string>");
-        android_TW.push("<string name='" + title + "'>" + valueTW + "</string>");
-        android_CN.push("<string name='" + title + "'>" + valueCN + "</string>");
+        android_KO.push("<string name=\"" + title + "\">" + valueKO + "</string>");
+        android_EN.push("<string name=\"" + title + "\">" + valueEN + "</string>");
+        android_TW.push("<string name=\"" + title + "\">" + valueTW + "</string>");
+        android_CN.push("<string name=\"" + title + "\">" + valueCN + "</string>");
       }
 
       android_KO.push("</resources>");
@@ -145,18 +145,16 @@
         valueEN = content.match(/stringen: ([^\r\t\f]+), stringtw/mi)[1];
         valueTW = content.match(/stringtw: ([^\r\t\f]+), stringcn/mi)[1];
         valueCN = content.match(/stringcn: ([^\r\t\f]+), end/mi)[1];
-        console.log(valueKO)
-        console.log(valueCN)
-        ios_KO.push('"' + title + '": "' + valueKO + '";');
-        ios_EN.push('"' + title + '": "' + valueEN + '";');
-        ios_TW.push('"' + title + '": "' + valueTW + '";');
-        ios_CN.push('"' + title + '": "' + valueCN + '";');
+        ios_KO.push('"' + title + '"= "' + valueKO + '";');
+        ios_EN.push('"' + title + '"= "' + valueEN + '";');
+        ios_TW.push('"' + title + '"= "' + valueTW + '";');
+        ios_CN.push('"' + title + '"= "' + valueCN + '";');
       }
 
-      document.getElementById("resultAppStringKO").innerText = ios_KO.join("\n");
-      document.getElementById("resultAppStringEN").innerText = ios_EN.join("\n");
-      document.getElementById("resultAppStringTW").innerText = ios_TW.join("\n");
-      document.getElementById("resultAppStringCN").innerText = ios_CN.join("\n");
+      document.getElementById("resultAppStringKO").value = ios_KO.join("\n");
+      document.getElementById("resultAppStringEN").value = ios_EN.join("\n");
+      document.getElementById("resultAppStringTW").value = ios_TW.join("\n");
+      document.getElementById("resultAppStringCN").value = ios_CN.join("\n");
 
       document.getElementById("updatedAppIOS").innerText = 'app string last updated: '+ feed.updated.$t;
     }
