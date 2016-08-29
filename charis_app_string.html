@@ -96,6 +96,11 @@
       var android_TW = [];
       var android_CN = [];
 
+      var valueKO = ''
+      var valueEN = ''
+      var valueTW = ''
+      var valueCN = ''
+
       android_KO.push("<resources>");
       android_EN.push("<resources>");
       android_TW.push("<resources>");
@@ -104,15 +109,35 @@
         var entry = entries[i];
         var title = entry.title.$t;
         var content = entry.content.$t;
+        var jsonDepth = content.match(/objectdepth1: (\S+)|objectdepth2: (\S+)|objectdepth3: (\S+)|objectdepth4: (\S+)/gmi);
 
-        valueKO = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
-        valueEN = content.match(/stringen: ([^\r\t\f]+), stringtw/mi)[1];
-        valueTW = content.match(/stringtw: ([^\r\t\f]+), stringcn/mi)[1];
-        valueCN = content.match(/stringcn: ([^\r\t\f]+), end/mi)[1];
-        android_KO.push("<string name=\"" + title + "\">" + valueKO + "</string>");
-        android_EN.push("<string name=\"" + title + "\">" + valueEN + "</string>");
-        android_TW.push("<string name=\"" + title + "\">" + valueTW + "</string>");
-        android_CN.push("<string name=\"" + title + "\">" + valueCN + "</string>");
+        var key = ''
+        if (!jsonDepth) {
+          valueKO = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
+          valueEN = content.match(/stringen: ([^\r\t\f]+), stringtw/mi)[1];
+          valueTW = content.match(/stringtw: ([^\r\t\f]+), stringcn/mi)[1];
+          valueCN = content.match(/stringcn: ([^\r\t\f]+), end/mi)[1];
+
+          android_KO.push("<string name=\"" + title + "\">" + valueKO + "</string>");
+          android_EN.push("<string name=\"" + title + "\">" + valueEN + "</string>");
+          android_TW.push("<string name=\"" + title + "\">" + valueTW + "</string>");
+          android_CN.push("<string name=\"" + title + "\">" + valueCN + "</string>");
+        } else {
+          for (var j = 0; j < jsonDepth.length; j++) {
+            key = /: (\S+),/.exec(jsonDepth[j])[1];
+            title = title + '_' + key
+
+            valueKO = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
+            valueEN = content.match(/stringen: ([^\r\t\f]+), stringtw/mi)[1];
+            valueTW = content.match(/stringtw: ([^\r\t\f]+), stringcn/mi)[1];
+            valueCN = content.match(/stringcn: ([^\r\t\f]+), end/mi)[1];
+
+            android_KO.push("<string name=\"" + title + "\">" + valueKO + "</string>");
+            android_EN.push("<string name=\"" + title + "\">" + valueEN + "</string>");
+            android_TW.push("<string name=\"" + title + "\">" + valueTW + "</string>");
+            android_CN.push("<string name=\"" + title + "\">" + valueCN + "</string>");
+          }
+        }
       }
 
       android_KO.push("</resources>");
@@ -136,19 +161,43 @@
       var ios_TW = []
       var ios_CN = []
 
+      var valueKO = ''
+      var valueEN = ''
+      var valueTW = ''
+      var valueCN = ''
+
       for (var i = 0; i < entries.length; ++i) {
         var entry = entries[i];
         var title = entry.title.$t;
         var content = entry.content.$t;
+        var jsonDepth = content.match(/objectdepth1: (\S+)|objectdepth2: (\S+)|objectdepth3: (\S+)|objectdepth4: (\S+)/gmi);
 
-        valueKO = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
-        valueEN = content.match(/stringen: ([^\r\t\f]+), stringtw/mi)[1];
-        valueTW = content.match(/stringtw: ([^\r\t\f]+), stringcn/mi)[1];
-        valueCN = content.match(/stringcn: ([^\r\t\f]+), end/mi)[1];
-        ios_KO.push('"' + title + '"= "' + valueKO + '";');
-        ios_EN.push('"' + title + '"= "' + valueEN + '";');
-        ios_TW.push('"' + title + '"= "' + valueTW + '";');
-        ios_CN.push('"' + title + '"= "' + valueCN + '";');
+        var key = ''
+        if (!jsonDepth) {
+          valueKO = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
+          valueEN = content.match(/stringen: ([^\r\t\f]+), stringtw/mi)[1];
+          valueTW = content.match(/stringtw: ([^\r\t\f]+), stringcn/mi)[1];
+          valueCN = content.match(/stringcn: ([^\r\t\f]+), end/mi)[1];
+
+          ios_KO.push('"' + title + '"= "' + valueKO + '";');
+          ios_EN.push('"' + title + '"= "' + valueEN + '";');
+          ios_TW.push('"' + title + '"= "' + valueTW + '";');
+          ios_CN.push('"' + title + '"= "' + valueCN + '";');
+        } else {
+          for (var j = 0; j < jsonDepth.length; j++) {
+            key = /: (\S+),/.exec(jsonDepth[j])[1];
+            title = title + '_' + key
+            valueKO = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
+            valueEN = content.match(/stringen: ([^\r\t\f]+), stringtw/mi)[1];
+            valueTW = content.match(/stringtw: ([^\r\t\f]+), stringcn/mi)[1];
+            valueCN = content.match(/stringcn: ([^\r\t\f]+), end/mi)[1];
+
+            ios_KO.push('"' + title + '"= "' + valueKO + '";');
+            ios_EN.push('"' + title + '"= "' + valueEN + '";');
+            ios_TW.push('"' + title + '"= "' + valueTW + '";');
+            ios_CN.push('"' + title + '"= "' + valueCN + '";');
+          }
+        }
       }
 
       document.getElementById("resultAppStringKO").value = ios_KO.join("\n");
