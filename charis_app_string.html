@@ -114,28 +114,29 @@
         var key = ''
         if (!jsonDepth) {
           valueKO = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
-          valueEN = content.match(/stringen: ([^\r\t\f]+), stringtw/mi)[1];
-          valueTW = content.match(/stringtw: ([^\r\t\f]+), stringcn/mi)[1];
-          valueCN = content.match(/stringcn: ([^\r\t\f]+), end/mi)[1];
+          valueEN = content.match(/stringen: ([^\r\t\f]+), stringcn/mi)[1];
+          valueCN = content.match(/stringcn: ([^\r\t\f]+), stringtw/mi)[1];
+          valueTW = content.match(/stringtw: ([^\r\t\f]+), end/mi)[1];
 
           android_KO.push("<string name=\"" + title + "\">" + valueKO + "</string>");
           android_EN.push("<string name=\"" + title + "\">" + valueEN + "</string>");
-          android_TW.push("<string name=\"" + title + "\">" + valueTW + "</string>");
           android_CN.push("<string name=\"" + title + "\">" + valueCN + "</string>");
+          android_TW.push("<string name=\"" + title + "\">" + valueTW + "</string>");
         } else {
           for (var j = 0; j < jsonDepth.length; j++) {
             key = /: (\S+),/.exec(jsonDepth[j])[1];
             title = title + '_' + key
 
             valueKO = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
-            valueEN = content.match(/stringen: ([^\r\t\f]+), stringtw/mi)[1];
-            valueTW = content.match(/stringtw: ([^\r\t\f]+), stringcn/mi)[1];
-            valueCN = content.match(/stringcn: ([^\r\t\f]+), end/mi)[1];
+            valueEN = content.match(/stringen: ([^\r\t\f]+), stringcn/mi)[1];
+            valueCN = content.match(/stringcn: ([^\r\t\f]+), stringtw/mi)[1];
+            if (!content.match(/stringtw: ([^\r\t\f]+), end/mi)) debugger;
+            valueTW = content.match(/stringtw: ([^\r\t\f]+), end/mi)[1];
 
             android_KO.push("<string name=\"" + title + "\">" + valueKO + "</string>");
             android_EN.push("<string name=\"" + title + "\">" + valueEN + "</string>");
-            android_TW.push("<string name=\"" + title + "\">" + valueTW + "</string>");
             android_CN.push("<string name=\"" + title + "\">" + valueCN + "</string>");
+            android_TW.push("<string name=\"" + title + "\">" + valueTW + "</string>");
           }
         }
       }
@@ -175,27 +176,27 @@
         var key = ''
         if (!jsonDepth) {
           valueKO = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
-          valueEN = content.match(/stringen: ([^\r\t\f]+), stringtw/mi)[1];
-          valueTW = content.match(/stringtw: ([^\r\t\f]+), stringcn/mi)[1];
-          valueCN = content.match(/stringcn: ([^\r\t\f]+), end/mi)[1];
+          valueEN = content.match(/stringen: ([^\r\t\f]+), stringcn/mi)[1];
+          valueCN = content.match(/stringcn: ([^\r\t\f]+), stringtw/mi)[1];
+          valueTW = content.match(/stringtw: ([^\r\t\f]+), end/mi)[1];
 
           ios_KO.push('"' + title + '"= "' + valueKO + '";');
           ios_EN.push('"' + title + '"= "' + valueEN + '";');
-          ios_TW.push('"' + title + '"= "' + valueTW + '";');
           ios_CN.push('"' + title + '"= "' + valueCN + '";');
+          ios_TW.push('"' + title + '"= "' + valueTW + '";');
         } else {
           for (var j = 0; j < jsonDepth.length; j++) {
             key = /: (\S+),/.exec(jsonDepth[j])[1];
             title = title + '_' + key
             valueKO = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
-            valueEN = content.match(/stringen: ([^\r\t\f]+), stringtw/mi)[1];
-            valueTW = content.match(/stringtw: ([^\r\t\f]+), stringcn/mi)[1];
-            valueCN = content.match(/stringcn: ([^\r\t\f]+), end/mi)[1];
+            valueEN = content.match(/stringen: ([^\r\t\f]+), stringcn/mi)[1];
+            valueCN = content.match(/stringcn: ([^\r\t\f]+), stringtw/mi)[1];
+            valueTW = content.match(/stringtw: ([^\r\t\f]+), end/mi)[1];
 
             ios_KO.push('"' + title + '"= "' + valueKO + '";');
             ios_EN.push('"' + title + '"= "' + valueEN + '";');
-            ios_TW.push('"' + title + '"= "' + valueTW + '";');
             ios_CN.push('"' + title + '"= "' + valueCN + '";');
+            ios_TW.push('"' + title + '"= "' + valueTW + '";');
           }
         }
       }
