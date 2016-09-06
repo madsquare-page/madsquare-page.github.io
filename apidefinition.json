@@ -1,0 +1,5 @@
+"cors": {
+  "allowedOrigins": [
+    "dev.azure-test.com:8000"
+  ]
+}
