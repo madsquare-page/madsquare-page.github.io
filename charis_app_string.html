@@ -173,31 +173,35 @@
         var jsonDepth = content.match(/objectdepth1: (\S+)|objectdepth2: (\S+)|objectdepth3: (\S+)|objectdepth4: (\S+)/gmi);
 
         var key = ''
-        if (!jsonDepth) {
-          valueKO = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
-          valueEN = content.match(/stringen: ([^\r\t\f]+), stringcn/mi)[1];
-          valueCN = content.match(/stringcn: ([^\r\t\f]+), stringtw/mi)[1];
-          valueTW = content.match(/stringtw: ([^\r\t\f]+), end/mi)[1];
+        try {
+          if (!jsonDepth) {
+            valueKO = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
+            valueEN = content.match(/stringen: ([^\r\t\f]+), stringcn/mi)[1];
+            valueCN = content.match(/stringcn: ([^\r\t\f]+), stringtw/mi)[1];
+            valueTW = content.match(/stringtw: ([^\r\t\f]+), end/mi)[1];
 
-          ios_KO.push('"' + title + '"= "' + valueKO + '";');
-          ios_EN.push('"' + title + '"= "' + valueEN + '";');
-          ios_CN.push('"' + title + '"= "' + valueCN + '";');
-          ios_TW.push('"' + title + '"= "' + valueTW + '";');
-        } else {
-          for (var j = 0; j < jsonDepth.length; j++) {
-            key = /: (\S+),/.exec(jsonDepth[j])[1];
-            title = title + '_' + key
+            ios_KO.push('"' + title + '"= "' + valueKO + '";');
+            ios_EN.push('"' + title + '"= "' + valueEN + '";');
+            ios_CN.push('"' + title + '"= "' + valueCN + '";');
+            ios_TW.push('"' + title + '"= "' + valueTW + '";');
+          } else {
+            for (var j = 0; j < jsonDepth.length; j++) {
+              key = /: (\S+),/.exec(jsonDepth[j])[1];
+              title = title + '_' + key
+            }
+            valueKO = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
+            valueEN = content.match(/stringen: ([^\r\t\f]+), stringcn/mi)[1];
+            valueCN = content.match(/stringcn: ([^\r\t\f]+), stringtw/mi)[1];
+            valueTW = content.match(/stringtw: ([^\r\t\f]+), end/mi)[1];
+
+            ios_KO.push('"' + title + '"= "' + valueKO + '";');
+            ios_EN.push('"' + title + '"= "' + valueEN + '";');
+            ios_CN.push('"' + title + '"= "' + valueCN + '";');
+            ios_TW.push('"' + title + '"= "' + valueTW + '";');
           }
-          valueKO = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
-          valueEN = content.match(/stringen: ([^\r\t\f]+), stringcn/mi)[1];
-          valueCN = content.match(/stringcn: ([^\r\t\f]+), stringtw/mi)[1];
-          valueTW = content.match(/stringtw: ([^\r\t\f]+), end/mi)[1];
-
-          ios_KO.push('"' + title + '"= "' + valueKO + '";');
-          ios_EN.push('"' + title + '"= "' + valueEN + '";');
-          ios_CN.push('"' + title + '"= "' + valueCN + '";');
-          ios_TW.push('"' + title + '"= "' + valueTW + '";');
         }
+      } catch (e) {
+        console.error(content, i, e)
       }
 
       document.getElementById("resultAppStringKO").value = ios_KO.join("\n");
