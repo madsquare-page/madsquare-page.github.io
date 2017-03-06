@@ -23,14 +23,14 @@
     textarea {
       width: 99%;
       height: 300px;
-      
+
     }
 
     textarea.pre {
       white-space: pre;
     }
   </style>
-  <script type="text/javascript" src="./js/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
   <div>
@@ -76,7 +76,7 @@
     </div>
   </div>
   <script>
-    
+
     function tab(type) {
       if (type === 'android') {
         $('#android').show()
@@ -112,31 +112,36 @@
         var jsonDepth = content.match(/objectdepth1: (\S+)|objectdepth2: (\S+)|objectdepth3: (\S+)|objectdepth4: (\S+)/gmi);
 
         var key = ''
-        if (!jsonDepth) {
-          valueKO = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
-          valueEN = content.match(/stringen: ([^\r\t\f]+), stringcn/mi)[1];
-          valueCN = content.match(/stringcn: ([^\r\t\f]+), stringtw/mi)[1];
-          valueTW = content.match(/stringtw: ([^\r\t\f]+), end/mi)[1];
+        try {
+          if (!jsonDepth) {
+            valueKO = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
+            valueEN = content.match(/stringen: ([^\r\t\f]+), stringcn/mi)[1];
+            valueCN = content.match(/stringcn: ([^\r\t\f]+), stringtw/mi)[1];
+            valueTW = content.match(/stringtw: ([^\r\t\f]+), end/mi)[1];
 
-          android_KO.push("<string name=\"" + title + "\">" + valueKO + "</string>");
-          android_EN.push("<string name=\"" + title + "\">" + valueEN + "</string>");
-          android_CN.push("<string name=\"" + title + "\">" + valueCN + "</string>");
-          android_TW.push("<string name=\"" + title + "\">" + valueTW + "</string>");
-        } else {
-          for (var j = 0; j < jsonDepth.length; j++) {
-            key = /: (\S+),/.exec(jsonDepth[j])[1];
-            title = title + '_' + key
+            android_KO.push("<string name=\"" + title + "\">" + valueKO + "</string>");
+            android_EN.push("<string name=\"" + title + "\">" + valueEN + "</string>");
+            android_CN.push("<string name=\"" + title + "\">" + valueCN + "</string>");
+            android_TW.push("<string name=\"" + title + "\">" + valueTW + "</string>");
+          } else {
+            for (var j = 0; j < jsonDepth.length; j++) {
+              key = /: (\S+),/.exec(jsonDepth[j])[1];
+              title = title + '_' + key
+            }
+            valueKO = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
+            valueEN = content.match(/stringen: ([^\r\t\f]+), stringcn/mi)[1];
+            valueCN = content.match(/stringcn: ([^\r\t\f]+), stringtw/mi)[1];
+            if (!content.match(/stringtw: ([^\r\t\f]+), end/mi)) debugger;
+            valueTW = content.match(/stringtw: ([^\r\t\f]+), end/mi)[1];
+
+            android_KO.push("<string name=\"" + title + "\">" + valueKO + "</string>");
+            android_EN.push("<string name=\"" + title + "\">" + valueEN + "</string>");
+            android_CN.push("<string name=\"" + title + "\">" + valueCN + "</string>");
+            android_TW.push("<string name=\"" + title + "\">" + valueTW + "</string>");
           }
-          valueKO = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
-          valueEN = content.match(/stringen: ([^\r\t\f]+), stringcn/mi)[1];
-          valueCN = content.match(/stringcn: ([^\r\t\f]+), stringtw/mi)[1];
-          if (!content.match(/stringtw: ([^\r\t\f]+), end/mi)) debugger;
-          valueTW = content.match(/stringtw: ([^\r\t\f]+), end/mi)[1];
-
-          android_KO.push("<string name=\"" + title + "\">" + valueKO + "</string>");
-          android_EN.push("<string name=\"" + title + "\">" + valueEN + "</string>");
-          android_CN.push("<string name=\"" + title + "\">" + valueCN + "</string>");
-          android_TW.push("<string name=\"" + title + "\">" + valueTW + "</string>");
+        } catch (e) {
+          console.error(content, i, e)
+          alert('error' + content)
         }
       }
 
@@ -199,9 +204,10 @@
             ios_CN.push('"' + title + '"= "' + valueCN + '";');
             ios_TW.push('"' + title + '"= "' + valueTW + '";');
           }
+        } catch (e) {
+          console.error(content, i, e)
+          alert('error' + content)
         }
-      } catch (e) {
-        console.error(content, i, e)
       }
 
       document.getElementById("resultAppStringKO").value = ios_KO.join("\n");
@@ -212,7 +218,7 @@
       document.getElementById("updatedAppIOS").innerText = 'app string last updated: '+ feed.updated.$t;
     }
 
-    
+
   </script>
   <script type="text/javascript" src="https://spreadsheets.google.com/feeds/list/10mbtOItx-YSoWEc5NitF2Fy56ib24SMWmvnO92jl9cs/4/public/basic?alt=json&callback=jsonParseAppAndroid"></script>
   <script type="text/javascript" src="https://spreadsheets.google.com/feeds/list/10mbtOItx-YSoWEc5NitF2Fy56ib24SMWmvnO92jl9cs/4/public/basic?alt=json&callback=jsonParseAppIos"></script>
