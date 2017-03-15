@@ -28,8 +28,8 @@
       height: 300px;
     }
   </style>
-  <script type="text/javascript" src="./js/jquery.min.js"></script>
-  <script type="text/javascript" src="./js/js-yaml.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.8.2/js-yaml.min.js"></script>
 </head>
 <body>
   <div id="updatedWeb" class='updated'></div>
@@ -37,7 +37,7 @@
     <button onclick="tab('json')">JSON</button>
     <button onclick="tab('yaml')">YAML</button>
   </div>
-  <div id="json">
+  <div id="json" style="display: none;">
     <div class='result'>
       <div class='title'>[ko] web-json</div>
       <div id="resultWebKO"></div>
@@ -55,7 +55,7 @@
       <div id="resultWebCN"></div>
     </div>
   </div>
-  <div id="yaml" style="display: none;">
+  <div id="yaml">
     <div class='result'>
       <div class='title'>[ko] web-yaml</div>
       <textarea id="resultYAMLWebKO" class="yaml"></textarea>
@@ -121,6 +121,7 @@
             }
             obj = obj[key], objEn = objEn[key], objTw = objTw[key], objCn = objCn[key];
           }
+          console.log(content)
           obj[key] = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
           objEn[key] = content.match(/stringen: ([^\r\t\f]+), stringtw/mi)[1];
           objTw[key] = content.match(/stringtw: ([^\r\t\f]+), stringcn/mi)[1];
