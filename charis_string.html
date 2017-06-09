@@ -47,6 +47,10 @@
       <div id="resultWebEN"></div>
     </div>
     <div class='result'>
+      <div class='title'>[th] web-json</div>
+      <div id="resultWebTH"></div>
+    </div>
+    <div class='result'>
       <div class='title'>[tw] web-json</div>
       <div id="resultWebTW"></div>
     </div>
@@ -63,6 +67,10 @@
     <div class='result'>
       <div class='title'>[en] web-yaml</div>
       <textarea id="resultYAMLWebEN" class="yaml"></textarea>
+    </div>
+    <div class='result'>
+      <div class='title'>[th] web-yaml</div>
+      <textarea id="resultYAMLWebTH" class="yaml"></textarea>
     </div>
     <div class='result'>
       <div class='title'>[tw] web-yaml</div>
@@ -87,18 +95,18 @@
     function jsonParseWeb(root) {
       var feed = root.feed;
       var entries = feed.entry || [];
-      var html_KO = [], html_EN = [], html_TW = [], html_CN = [];
-      var result_KO = {}, result_EN = {}, result_TW = {}, result_CN = {};
+      var html_KO = [], html_EN = [], html_TH = [], html_TW = [], html_CN = [];
+      var result_KO = {}, result_EN = {}, result_TH = {}, result_TW = {}, result_CN = {};
 
       for (var i = 0; i < entries.length; ++i) {
         var entry = entries[i];
-        var obj = {}, objEn = {}, objTw = {}, objCn = {};
+        var obj = {}, objEn = {}, objTh = {}, objTw = {}, objCn = {};
 
         var title = entry.title.$t;
         if (!result_KO[title]) {
-          result_KO[title] = {}, result_EN[title] = {}, result_TW[title] = {}, result_CN[title] = {};
+          result_KO[title] = {}, result_EN[title] = {}, result_TH[title] = {}, result_TW[title] = {}, result_CN[title] = {};
         }
-        obj = result_KO[title], objEn = result_EN[title], objTw = result_TW[title], objCn = result_CN[title];
+        obj = result_KO[title], objEn = result_EN[title], objTh = result_TH[title], objTw = result_TW[title], objCn = result_CN[title];
 
         var content = entry.content.$t;
         jsonDepth = content.match(/objectdepth1: (\S+)|objectdepth2: (\S+)|objectdepth3: (\S+)|objectdepth4: (\S+)/gmi);
@@ -106,7 +114,8 @@
         var key = ''
         if (!jsonDepth) {
           result_KO[title] = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
-          result_EN[title] = content.match(/stringen: ([^\r\t\f]+), stringtw/mi)[1];
+          result_EN[title] = content.match(/stringen: ([^\r\t\f]+), stringth/mi)[1];
+          result_TH[title] = content.match(/stringth: ([^\r\t\f]+), stringtw/mi)[1];
           result_TW[title] = content.match(/stringtw: ([^\r\t\f]+), stringcn/mi)[1];
           result_CN[title] = content.match(/stringcn: ([^\r\t\f]+), end/mi)[1];
         } else {
@@ -114,16 +123,17 @@
             key = /: (\S+),/.exec(jsonDepth[j])[1];
 
             if (!obj[key]) {
-              obj[key] = {}, objEn[key] = {}, objTw[key] = {}, objCn[key] = {};
+              obj[key] = {}, objEn[key] = {}, objTh[key] = {}, objTw[key] = {}, objCn[key] = {};
               if (j + 1 == jsonDepth.length) {
                 break;
               }
             }
-            obj = obj[key], objEn = objEn[key], objTw = objTw[key], objCn = objCn[key];
+            obj = obj[key], objEn = objEn[key], objTh = objTh[key], objTw = objTw[key], objCn = objCn[key];
           }
           console.log(content)
           obj[key] = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
-          objEn[key] = content.match(/stringen: ([^\r\t\f]+), stringtw/mi)[1];
+          objEn[key] = content.match(/stringen: ([^\r\t\f]+), stringth/mi)[1];
+          objTh[key] = content.match(/stringth: ([^\r\t\f]+), stringtw/mi)[1];
           objTw[key] = content.match(/stringtw: ([^\r\t\f]+), stringcn/mi)[1];
           objCn[key] = content.match(/stringcn: ([^\r\t\f]+), end/mi)[1];
         }
@@ -131,21 +141,25 @@
 
       html_KO.push(JSON.stringify(result_KO));
       html_EN.push(JSON.stringify(result_EN));
+      html_TH.push(JSON.stringify(result_TH));
       html_TW.push(JSON.stringify(result_TW));
       html_CN.push(JSON.stringify(result_CN));
       document.getElementById("resultWebKO").innerText = html_KO.join("");
       document.getElementById("resultWebEN").innerText = html_EN.join("");
+      document.getElementById("resultWebTH").innerText = html_TH.join("");
       document.getElementById("resultWebTW").innerText = html_TW.join("");
       document.getElementById("resultWebCN").innerText = html_CN.join("");
-      
-      
-      var yamlKO = jsyaml.safeDump(jsyaml.load(html_KO.join(""))) 
+
+
+      var yamlKO = jsyaml.safeDump(jsyaml.load(html_KO.join("")))
       var yamlEN = jsyaml.safeDump(jsyaml.load(html_EN.join("")))
+      var yamlTH = jsyaml.safeDump(jsyaml.load(html_TH.join("")))
       var yamlTW = jsyaml.safeDump(jsyaml.load(html_TW.join("")))
       var yamlCN = jsyaml.safeDump(jsyaml.load(html_CN.join("")))
 
       document.getElementById("resultYAMLWebKO").value = yamlKO;
       document.getElementById("resultYAMLWebEN").value = yamlEN;
+      document.getElementById("resultYAMLWebTH").value = yamlTH;
       document.getElementById("resultYAMLWebTW").value = yamlTW;
       document.getElementById("resultYAMLWebCN").value = yamlCN;
 
