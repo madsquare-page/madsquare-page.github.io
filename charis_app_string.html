@@ -48,12 +48,16 @@
       <textarea class="pre" id="resultAppXmlEN"></textarea>
     </div>
     <div class='result'>
+      <div class='title'>[cn] app-xml</div>
+      <textarea class="pre" id="resultAppXmlCN"></textarea>
+    </div>
+    <div class='result'>
       <div class='title'>[tw] app-xml</div>
       <textarea class="pre" id="resultAppXmlTW"></textarea>
     </div>
     <div class='result'>
-      <div class='title'>[cn] app-xml</div>
-      <textarea class="pre" id="resultAppXmlCN"></textarea>
+      <div class='title'>[th] app-xml</div>
+      <textarea class="pre" id="resultAppXmlTH"></textarea>
     </div>
   </div>
   <div id="ios" style="display: none;">
@@ -67,12 +71,16 @@
       <textarea id="resultAppStringEN"></textarea>
     </div>
     <div class='result'>
+      <div class='title'>[cn] app-string</div>
+      <textarea id="resultAppStringCN"></textarea>
+    </div>
+    <div class='result'>
       <div class='title'>[tw] app-string</div>
       <textarea id="resultAppStringTW"></textarea>
     </div>
     <div class='result'>
-      <div class='title'>[cn] app-string</div>
-      <textarea id="resultAppStringCN"></textarea>
+      <div class='title'>[th] app-string</div>
+      <textarea id="resultAppStringTH"></textarea>
     </div>
   </div>
   <script>
@@ -87,24 +95,31 @@
       }
     }
 
+    function normalizeText(result) {
+      return result ? result[1] : ''
+    }
+
     function jsonParseAppAndroid(root) {
       var feed = root.feed;
       var entries = feed.entry || [];
 
       var android_KO = [];
       var android_EN = [];
-      var android_TW = [];
       var android_CN = [];
+      var android_TW = [];
+      var android_TH = [];
 
       var valueKO = ''
       var valueEN = ''
-      var valueTW = ''
       var valueCN = ''
+      var valueTW = ''
+      var valueTH = ''
 
       android_KO.push("<resources>");
       android_EN.push("<resources>");
-      android_TW.push("<resources>");
       android_CN.push("<resources>");
+      android_TW.push("<resources>");
+      android_TH.push("<resources>");
       for (var i = 0; i < entries.length; ++i) {
         var entry = entries[i];
         var title = entry.title.$t;
@@ -114,46 +129,50 @@
         var key = ''
         try {
           if (!jsonDepth) {
-            valueKO = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
-            valueEN = content.match(/stringen: ([^\r\t\f]+), stringcn/mi)[1];
-            valueCN = content.match(/stringcn: ([^\r\t\f]+), stringtw/mi)[1];
-            valueTW = content.match(/stringtw: ([^\r\t\f]+), end/mi)[1];
+            valueKO = normalizeText(content.match(/stringko: ([^\r\t\f]+), stringen/mi));
+            valueEN = normalizeText(content.match(/stringen: ([^\r\t\f]+), stringcn/mi));
+            valueCN = normalizeText(content.match(/stringcn: ([^\r\t\f]+), stringtw/mi));
+            valueTW = normalizeText(content.match(/stringtw: ([^\r\t\f]+), stringth/mi));
+            valueTH = normalizeText(content.match(/stringth: ([^\r\t\f]+), end/mi));
 
             android_KO.push("<string name=\"" + title + "\">" + valueKO + "</string>");
             android_EN.push("<string name=\"" + title + "\">" + valueEN + "</string>");
             android_CN.push("<string name=\"" + title + "\">" + valueCN + "</string>");
             android_TW.push("<string name=\"" + title + "\">" + valueTW + "</string>");
+            android_TH.push("<string name=\"" + title + "\">" + valueTH + "</string>");
           } else {
             for (var j = 0; j < jsonDepth.length; j++) {
               key = /: (\S+),/.exec(jsonDepth[j])[1];
               title = title + '_' + key
             }
-            valueKO = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
-            valueEN = content.match(/stringen: ([^\r\t\f]+), stringcn/mi)[1];
-            valueCN = content.match(/stringcn: ([^\r\t\f]+), stringtw/mi)[1];
-            if (!content.match(/stringtw: ([^\r\t\f]+), end/mi)) debugger;
-            valueTW = content.match(/stringtw: ([^\r\t\f]+), end/mi)[1];
+            valueKO = normalizeText(content.match(/stringko: ([^\r\t\f]+), stringen/mi));
+            valueEN = normalizeText(content.match(/stringen: ([^\r\t\f]+), stringcn/mi));
+            valueCN = normalizeText(content.match(/stringcn: ([^\r\t\f]+), stringtw/mi));
+            valueTW = normalizeText(content.match(/stringtw: ([^\r\t\f]+), stringth/mi));
+            valueTH = normalizeText(content.match(/stringth: ([^\r\t\f]+), end/mi));
 
             android_KO.push("<string name=\"" + title + "\">" + valueKO + "</string>");
             android_EN.push("<string name=\"" + title + "\">" + valueEN + "</string>");
             android_CN.push("<string name=\"" + title + "\">" + valueCN + "</string>");
             android_TW.push("<string name=\"" + title + "\">" + valueTW + "</string>");
+            android_TH.push("<string name=\"" + title + "\">" + valueTH + "</string>");
           }
         } catch (e) {
           console.error(content, i, e)
-          alert('error' + content)
         }
       }
 
       android_KO.push("</resources>");
       android_EN.push("</resources>");
-      android_TW.push("</resources>");
       android_CN.push("</resources>");
+      android_TW.push("</resources>");
+      android_TH.push("</resources>");
 
       document.getElementById("resultAppXmlKO").innerText = android_KO.join("\n");
       document.getElementById("resultAppXmlEN").innerText = android_EN.join("\n");
-      document.getElementById("resultAppXmlTW").innerText = android_TW.join("\n");
       document.getElementById("resultAppXmlCN").innerText = android_CN.join("\n");
+      document.getElementById("resultAppXmlTW").innerText = android_TW.join("\n");
+      document.getElementById("resultAppXmlTH").innerText = android_TH.join("\n");
 
       document.getElementById("updatedAppAndroid").innerText = 'app string last updated: '+ feed.updated.$t;
     }
@@ -163,13 +182,15 @@
 
       var ios_KO = []
       var ios_EN = []
-      var ios_TW = []
       var ios_CN = []
+      var ios_TW = []
+      var ios_TH = []
 
       var valueKO = ''
       var valueEN = ''
-      var valueTW = ''
       var valueCN = ''
+      var valueTW = ''
+      var valueTH = ''
 
       for (var i = 0; i < entries.length; ++i) {
         var entry = entries[i];
@@ -180,40 +201,44 @@
         var key = ''
         try {
           if (!jsonDepth) {
-            valueKO = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
-            valueEN = content.match(/stringen: ([^\r\t\f]+), stringcn/mi)[1];
-            valueCN = content.match(/stringcn: ([^\r\t\f]+), stringtw/mi)[1];
-            valueTW = content.match(/stringtw: ([^\r\t\f]+), end/mi)[1];
+            valueKO = normalizeText(content.match(/stringko: ([^\r\t\f]+), stringen/mi));
+            valueEN = normalizeText(content.match(/stringen: ([^\r\t\f]+), stringcn/mi));
+            valueCN = normalizeText(content.match(/stringcn: ([^\r\t\f]+), stringtw/mi));
+            valueTW = normalizeText(content.match(/stringtw: ([^\r\t\f]+), stringth/mi));
+            valueTH = normalizeText(content.match(/stringth: ([^\r\t\f]+), end/mi));
 
             ios_KO.push('"' + title + '"= "' + valueKO + '";');
             ios_EN.push('"' + title + '"= "' + valueEN + '";');
             ios_CN.push('"' + title + '"= "' + valueCN + '";');
             ios_TW.push('"' + title + '"= "' + valueTW + '";');
+            ios_TH.push('"' + title + '"= "' + valueTH + '";');
           } else {
             for (var j = 0; j < jsonDepth.length; j++) {
               key = /: (\S+),/.exec(jsonDepth[j])[1];
               title = title + '_' + key
             }
-            valueKO = content.match(/stringko: ([^\r\t\f]+), stringen/mi)[1];
-            valueEN = content.match(/stringen: ([^\r\t\f]+), stringcn/mi)[1];
-            valueCN = content.match(/stringcn: ([^\r\t\f]+), stringtw/mi)[1];
-            valueTW = content.match(/stringtw: ([^\r\t\f]+), end/mi)[1];
+            valueKO = normalizeText(content.match(/stringko: ([^\r\t\f]+), stringen/mi));
+            valueEN = normalizeText(content.match(/stringen: ([^\r\t\f]+), stringcn/mi));
+            valueCN = normalizeText(content.match(/stringcn: ([^\r\t\f]+), stringtw/mi));
+            valueTW = normalizeText(content.match(/stringtw: ([^\r\t\f]+), stringth/mi));
+            valueTH = normalizeText(content.match(/stringth: ([^\r\t\f]+), end/mi));
 
             ios_KO.push('"' + title + '"= "' + valueKO + '";');
             ios_EN.push('"' + title + '"= "' + valueEN + '";');
             ios_CN.push('"' + title + '"= "' + valueCN + '";');
             ios_TW.push('"' + title + '"= "' + valueTW + '";');
+            ios_TH.push('"' + title + '"= "' + valueTH + '";');
           }
         } catch (e) {
           console.error(content, i, e)
-          alert('error' + content)
         }
       }
 
       document.getElementById("resultAppStringKO").value = ios_KO.join("\n");
       document.getElementById("resultAppStringEN").value = ios_EN.join("\n");
-      document.getElementById("resultAppStringTW").value = ios_TW.join("\n");
       document.getElementById("resultAppStringCN").value = ios_CN.join("\n");
+      document.getElementById("resultAppStringTW").value = ios_TW.join("\n");
+      document.getElementById("resultAppStringTH").value = ios_TH.join("\n");
 
       document.getElementById("updatedAppIOS").innerText = 'app string last updated: '+ feed.updated.$t;
     }
